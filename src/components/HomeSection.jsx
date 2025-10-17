@@ -25,8 +25,8 @@ export const HomeSection = () => {
             </div>
 
             <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col animate-bounce items-center">
-                <span>Scroll</span>
-                <ArrowDown className="mt-2 h-6 w-6 text-primary/70"/>
+                <span className="text-sm text-muted-foreground mb-2"> Scroll </span>
+                <ArrowDown className="mt-2 h-6 w-6 text-primary/70" />
             </div>
         </section>
     )
