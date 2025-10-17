@@ -1,0 +1,26 @@
+export const AboutSection = () => {
+    return (
+        <section id="about" className="py-24 px-4 relative flex flex-col items-center">
+            <div className="container mx-auto max-w-5xl">
+                <h2 className="text-4xl md:text-4xl font-bold mb-12 text-center">
+                    About 
+                    <span className="text-primary"> Me</span>
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-8">
+                    <div className="space-y-6">
+                    </div>
+
+                </div>
+
+            </div>
+            
+            <p className="max-w-3xl text-center text-lg leading-relaxed">
+                Hello! I'm Juderose, a passionate web developer with a love for creating beautiful and functional websites. 
+                With a strong foundation in JavaScript, React, and CSS, I enjoy bringing ideas to life in the digital world.
+                When I'm not coding, you can find me exploring new technologies, hiking in nature, or experimenting with photography.
+                I'm always eager to learn and take on new challenges, so feel free to reach out if you'd like to collaborate!
+            </p>
+        </section>
+    )
+}
