@@ -3,6 +3,7 @@ import { ThemeProvider } from "../components/ThemeContext";
 import { Navbar } from "../components/Navbar";
 import { HomeSection } from "../components/HomeSection";
 import { AboutSection } from "../components/AboutSection";
+import { SkillsSection } from "../components/SkillsSection";
 
 export const Home = () => {
     return (
@@ -20,6 +21,7 @@ export const Home = () => {
               {/* Sections */}
               <HomeSection />
               <AboutSection />
+              <SkillsSection />
           </main>
 
           {/* Footer */}
