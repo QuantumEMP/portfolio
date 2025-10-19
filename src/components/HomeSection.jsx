@@ -1,11 +1,17 @@
 import { ArrowDown } from "lucide-react";
 import { useTheme } from "./ThemeContext";
+import { Cards } from "./Cards";
 
 export const HomeSection = () => {
     const { isDarkMode } = useTheme();
     return (
         <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-4">
-            <div className="container max-w-4xl text-center mx-auto z-10">
+            <Cards />
+            <div
+                className="container max-w-4xl text-center mx-auto z-10 p-6 dark:bg-background/90 backdrop-blur-xl transition-all duration-300"
+            
+            >
+                
                 <div className="space-y-6">
                     <h1 className="text-4xl sm:text-6xl font-bold tracking-tight">
                         <span className="opacity-0 animate-fade-in">Hi, I'm </span>
@@ -13,7 +19,7 @@ export const HomeSection = () => {
                         <span className="text-glow text-gradient ml-2 opacity-0 animate-fade-in-delay-2">Rose</span>
                     </h1>
                     <p className="text-lg md:text-xl text-muted-foreground/80 opacity-0 animate-fade-in-delay-3">
-                        {isDarkMode ? ("A Jack of all trades, master of none but still always better than a master of one. ") : ("Your future ace engineer, ready to tackle challenges with creativity and passion. ")}
+                        {isDarkMode ?  ("Your future ace engineer, ready to tackle challenges with creativity and passion. ") : ("A Jack of all trades, master of none but still always better than a master of one. ")}
                     </p>
 
                     <div className="pt-4 opacity-0 animate-fade-in-delay-4">
