@@ -8,7 +8,7 @@ export const HomeSection = () => {
         <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-4">
             <Cards />
             <div
-                className="container max-w-4xl text-center mx-auto z-10 p-6 dark:bg-background/90 backdrop-blur-xl transition-all duration-300"
+                className="container max-w-4xl text-center mx-auto z-10 p-6 backdrop-blur-xl transition-all duration-300"
             
             >
                 

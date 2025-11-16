@@ -5,12 +5,14 @@ import { HomeSection } from "../components/HomeSection";
 import { AboutSection } from "../components/AboutSection";
 import { SkillsSection } from "../components/SkillsSection";
 import { ProjectsSection } from "../components/ProjectsSection";
-import { Cards } from "../components/Cards";
+import { ContactSection } from "../components/ContactSection";
+import Aurora from "../components/Background";
 
 export const Home = () => {
     return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+        
+      <div className="min-h-screen text-foreground overflow-x-hidden">
 
           {/* Theme Toggle */}
           <ThemeToggle />
@@ -18,6 +20,12 @@ export const Home = () => {
           
           {/* Navigation */}
           <Navbar />
+          <Aurora
+            colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+            blend={1}
+            amplitude={1.0}
+            speed={0.5}
+            />
           {/* Main */}
           <main>
               {/* Sections */}
@@ -25,6 +33,7 @@ export const Home = () => {
               <AboutSection />
               <SkillsSection />
               <ProjectsSection />
+              <ContactSection />
           </main>
 
           {/* Footer */}
