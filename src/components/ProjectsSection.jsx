@@ -32,7 +32,7 @@ export const ProjectsSection = () => {
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-4xl font-bold mb-12 text-center">
           {" "}
-          Featured <span className="text-primary">Projects</span>
+          Winning <span className="text-secondary">Hands</span>
         </h2>
 
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2">

@@ -8,6 +8,7 @@
 
   --color-primary: rgb(var(--first));
   --color-secondary: rgb(var(--second));
+  --color-tertiary: rgb(var(--third));
 
   --color-card: rgb(var(--card));
 
@@ -72,25 +73,25 @@
 
   :root {
     --border: 18, 65, 112;
-    --bg: 242, 227, 201;
-    --fg: 239, 75, 75;
+    --bg: 222, 185, 211;
+    --fg: 27, 27, 30;
 
-    --first: 126, 207, 192;
-    --second: 245, 174, 146;
+    --first: 165, 63, 43;
+    --second: 56, 114, 108;
 
-    --card: 62, 95, 68;
+    --card: 217, 229, 214;
 
   }
 
   .dark {
     --border: 251, 119, 60;
-    --bg: 0, 0, 0;
-    --fg: 255, 0, 0;
+    --bg: 1, 3, 24;
+    --fg: 231, 232, 231;
 
-    --first: 61, 0, 0;
-    --second: 149, 1, 1;
+    --first: 	167, 42, 42;
+    --second: 221, 215, 141;
 
-    --card: 24, 1, 97;
+    --card: 62, 112, 146;
   }
 
   * {

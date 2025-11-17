@@ -59,8 +59,8 @@ export const SkillsSection = () => {
         
             <div className="container mx-auto max-w-5xl">
                 <h2 className="text-4xl md:text-4xl font-bold mb-12 text-center">
-                    My 
-                    <span className="text-primary"> Skills</span>
+                    The
+                    <span className="text-primary"> Deck</span>
                 </h2>
 
                 <div className="flex flex-wrap justify-center mb-12 gap-4">
