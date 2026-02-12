@@ -1,5 +1,4 @@
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { ThemeProvider } from "../components/ThemeContext";
 import { Navbar } from "../components/Navbar";
 import { HomeSection } from "../components/HomeSection";
 import { AboutSection } from "../components/AboutSection";
@@ -10,7 +9,6 @@ import Aurora from "../components/reactbits/Background";
 
 export const Home = () => {
   return (
-    <ThemeProvider>
       <div className="min-h-screen text-foreground overflow-x-hidden">
         {/* Theme Toggle */}
         <ThemeToggle />
@@ -36,6 +34,5 @@ export const Home = () => {
 
         {/* Footer */}
       </div>
-    </ThemeProvider>
   );
 };

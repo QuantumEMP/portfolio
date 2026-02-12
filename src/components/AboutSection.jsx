@@ -44,9 +44,9 @@ export const AboutSection = () => {
                                 <div className="p-3 rounded-full bg-primary/10">
                                     <Code className="w-6 h-6 text-primary" />
                                 </div>
-                                <div className="text=left">
-                                    <h4 className="font-semi-bold text-lg">Web Development</h4>
-                                    <p className="text-muted-foreground"></p>
+                                <div className="text-left">
+                                    <h4 className="font-semi-bold text-lg">Web and App Development</h4>
+                                    <p className="text-muted-foreground">Creating responsive and interactive web and mobile applications using modern frameworks and tools.</p>
                                 </div>
                             </div>
                         </div>
@@ -55,9 +55,9 @@ export const AboutSection = () => {
                                 <div className="p-3 rounded-full bg-primary/10">
                                     <User className="w-6 h-6 text-primary" />
                                 </div>
-                                <div className="text=left">
-                                    <h4 className="font-semi-bold text-lg">Web Development</h4>
-                                    <p className="text-muted-foreground"></p>
+                                <div className="text-left">
+                                    <h4 className="font-semi-bold text-lg">UI/UX Design</h4>
+                                    <p className="text-muted-foreground">Designing intuitive and visually appealing user interfaces and experiences for web and mobile applications.</p>
                                 </div>
                             </div>
                         </div>
@@ -66,9 +66,9 @@ export const AboutSection = () => {
                                 <div className="p-3 rounded-full bg-primary/10">
                                     <Briefcase className="w-6 h-6 text-primary" />
                                 </div>
-                                <div className="text=left">
-                                    <h4 className="font-semi-bold text-lg">Web Development</h4>
-                                    <p className="text-muted-foreground"></p>
+                                <div className="text-left">
+                                    <h4 className="font-semi-bold text-lg">Project Management</h4>
+                                    <p className="text-muted-foreground">Managing projects from conception to completion, ensuring timely delivery and successful outcomes.</p>
                                 </div>
                             </div>
                         </div>

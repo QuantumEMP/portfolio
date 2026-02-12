@@ -8,7 +8,7 @@ const navItems = [
     { name: 'Skills', link: '#skills' },
     { name: 'Projects', link: '#projects' },
     { name: 'Contact', link: '#contact' },
-    { name: 'Blog', link: '/blog' },
+    { name: 'Blog', link: 'https://jude-rose.com' },
 ];
 
 export const Navbar = () => {
@@ -44,6 +44,8 @@ export const Navbar = () => {
                             key={item.name}
                             href={item.link}
                             className="mx-4 text-md font-medium text-foreground/80 hover:text-primary transition-colors duration-300"
+                            target={item.link.startsWith('http') ? '_blank' : undefined}
+                            rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                         >
                             {item.name}
                         </a>
@@ -68,6 +70,8 @@ export const Navbar = () => {
                                 href={item.link}
                                 className="text-foreground/80 hover:text-primary transition-colors duration-300"
                                 onClick={() => setIsMobileMenuOpen(false)}
+                                target={item.link.startsWith('http') ? '_blank' : undefined}
+                                rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
                             >
                                 {item.name}
                             </a>
