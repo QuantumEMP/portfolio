@@ -1,0 +1,1 @@
+Life is like a deck of cards; sometimes you have to play the joker.

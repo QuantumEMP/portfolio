@@ -2,17 +2,53 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
+  --font-sans: "Public Sans", sans-serif;
 
-  --color-green-50: #EFFDF5;
-  --color-green-100: #D9FBE8;
-  --color-green-200: #B3F5D1;
-  --color-green-300: #75EDAE;
-  --color-green-400: #00DC82;
-  --color-green-500: #00C16A;
-  --color-green-600: #00A155;
-  --color-green-700: #007F45;
-  --color-green-800: #016538;
-  --color-green-900: #0A5331;
-  --color-green-950: #052E16;
+  --color-baltic-blue-50: #edf2f8;
+  --color-baltic-blue-100: #dbe4f0;
+  --color-baltic-blue-200: #b7cae1;
+  --color-baltic-blue-300: #92afd3;
+  --color-baltic-blue-400: #6e95c4;
+  --color-baltic-blue-500: #4a7ab5;
+  --color-baltic-blue-600: #3b6291;
+  --color-baltic-blue-700: #2c496d;
+  --color-baltic-blue-800: #1e3148;
+  --color-baltic-blue-900: #0f1824;
+  --color-baltic-blue-950: #0a1119;
+
+  --color-lavender-grey-50: #f1f1f3;
+  --color-lavender-grey-100: #e3e4e8;
+  --color-lavender-grey-200: #c7c8d1;
+  --color-lavender-grey-300: #acadb9;
+  --color-lavender-grey-400: #9092a2;
+  --color-lavender-grey-500: #74768b;
+  --color-lavender-grey-600: #5d5f6f;
+  --color-lavender-grey-700: #464753;
+  --color-lavender-grey-800: #2e2f38;
+  --color-lavender-grey-900: #17181c;
+  --color-lavender-grey-950: #101113;
+
+  --color-night-bordeaux-50: #fce9ed;
+  --color-night-bordeaux-100: #f9d2dc;
+  --color-night-bordeaux-200: #f3a5b9;
+  --color-night-bordeaux-300: #ed7895;
+  --color-night-bordeaux-400: #e74b72;
+  --color-night-bordeaux-500: #e01f4f;
+  --color-night-bordeaux-600: #b4183f;
+  --color-night-bordeaux-700: #87122f;
+  --color-night-bordeaux-800: #5a0c20;
+  --color-night-bordeaux-900: #2d0610;
+  --color-night-bordeaux-950: #1f040b;
+
+  --color-punch-red-50: #fde8ea;
+  --color-punch-red-100: #fad1d5;
+  --color-punch-red-200: #f5a3ab;
+  --color-punch-red-300: #f07581;
+  --color-punch-red-400: #ec4657;
+  --color-punch-red-500: #e7182d;
+  --color-punch-red-600: #b91324;
+  --color-punch-red-700: #8a0f1b;
+  --color-punch-red-800: #5c0a12;
+  --color-punch-red-900: #2e0509;
+  --color-punch-red-950: #200306;
 }
