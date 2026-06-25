@@ -1,3 +1,10 @@
+<script setup lang="en" >
+definePageMeta({
+  layout: 'main',
+})
+</script>
+
+
 <template>
   <div>
     <NuxtRouteAnnouncer />

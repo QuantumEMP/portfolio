@@ -1,0 +1,99 @@
+/**
+ * palettes.css
+ * ─────────────────────────────────────────────────────────────
+ * Four suit-themed palettes for the Joker portfolio.
+ * Each palette maps semantic tokens onto the base colour ramps
+ * defined in main.css (@theme static).
+ *
+ * Usage — add the class to <html> or a wrapper element:
+ *   <html class="pal-heart">
+ *
+ * Palettes:
+ *   .pal-spade   ♠  Black suit — cold baltic blue primary
+ *   .pal-club    ♣  Black suit — lavender grey primary
+ *   .pal-heart   ♥  Red suit  — night bordeaux primary
+ *   .pal-diamond ♦  Red suit  — punch red primary
+ * ─────────────────────────────────────────────────────────────
+ */
+
+/* ── SHARED SEMANTIC TOKENS (fallback / default = heart) ─── */
+:root {
+  --color-bg:          var(--color-night-bordeaux-950); /* page background      */
+  --color-surface:     var(--color-night-bordeaux-900); /* cards, raised panels  */
+  --color-card:        var(--color-night-bordeaux-900); /* alter / content cards */
+  --color-accent:      var(--color-night-bordeaux-500); /* primary accent        */
+  --color-accent-deep: var(--color-night-bordeaux-700); /* hover / pressed       */
+  --color-accent-soft: var(--color-night-bordeaux-100); /* tinted fills          */
+  --color-text:        var(--color-night-bordeaux-50);  /* primary text          */
+  --color-muted:       var(--color-night-bordeaux-700); /* secondary / captions  */
+  --color-border:      var(--color-night-bordeaux-800); /* dividers, outlines    */
+  --color-suit-ghost:  var(--color-night-bordeaux-500); /* large decorative suit */
+}
+
+/* ── ♠  SPADE — cold baltic blue ─────────────────────────── */
+.pal-spade {
+  --color-bg:          var(--color-baltic-blue-950);
+  --color-surface:     var(--color-baltic-blue-900);
+  --color-card:        var(--color-baltic-blue-800);
+  --color-accent:      var(--color-baltic-blue-500);
+  --color-accent-deep: var(--color-baltic-blue-700);
+  --color-accent-soft: var(--color-baltic-blue-100);
+  --color-text:        var(--color-lavender-grey-50);
+  --color-muted:       var(--color-lavender-grey-700);
+  --color-border:      var(--color-baltic-blue-800);
+  --color-suit-ghost:  var(--color-baltic-blue-500);
+}
+
+/* ── ♣  CLUB — lavender grey ─────────────────────────────── */
+.pal-club {
+  --color-bg:          var(--color-lavender-grey-950);
+  --color-surface:     var(--color-lavender-grey-900);
+  --color-card:        var(--color-lavender-grey-800);
+  --color-accent:      var(--color-lavender-grey-500);
+  --color-accent-deep: var(--color-lavender-grey-700);
+  --color-accent-soft: var(--color-lavender-grey-100);
+  --color-text:        var(--color-lavender-grey-50);
+  --color-muted:       var(--color-lavender-grey-600);
+  --color-border:      var(--color-lavender-grey-800);
+  --color-suit-ghost:  var(--color-lavender-grey-500);
+}
+
+/* ── ♥  HEART — night bordeaux ───────────────────────────── */
+.pal-heart {
+  --color-bg:          var(--color-night-bordeaux-950);
+  --color-surface:     var(--color-night-bordeaux-900);
+  --color-card:        var(--color-night-bordeaux-900);
+  --color-accent:      var(--color-night-bordeaux-500);
+  --color-accent-deep: var(--color-night-bordeaux-700);
+  --color-accent-soft: var(--color-night-bordeaux-100);
+  --color-text:        var(--color-night-bordeaux-50);
+  --color-muted:       var(--color-night-bordeaux-700);
+  --color-border:      var(--color-night-bordeaux-800);
+  --color-suit-ghost:  var(--color-night-bordeaux-500);
+}
+
+/* ── ♦  DIAMOND — punch red ──────────────────────────────── */
+.pal-diamond {
+  --color-bg:          var(--color-punch-red-950);
+  --color-surface:     var(--color-punch-red-900);
+  --color-card:        var(--color-punch-red-800);
+  --color-accent:      var(--color-punch-red-500);
+  --color-accent-deep: var(--color-punch-red-700);
+  --color-accent-soft: var(--color-punch-red-100);
+  --color-text:        var(--color-lavender-grey-50);
+  --color-muted:       var(--color-lavender-grey-600);
+  --color-border:      var(--color-punch-red-800);
+  --color-suit-ghost:  var(--color-punch-red-500);
+}
+
+/* ── RED / BLACK SUIT HELPERS ────────────────────────────── */
+/*
+ * Use these utility classes on individual elements (e.g. alter cards,
+ * suit symbols) that always need red or blue/grey regardless of
+ * the active palette.
+ *
+ *   <span class="suit-red">♥</span>
+ *   <span class="suit-black">♠</span>
+ */
+.suit-red   { color: var(--color-night-bordeaux-500); }
+.suit-black { color: var(--color-baltic-blue-500); }
