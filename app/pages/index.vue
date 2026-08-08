@@ -6,9 +6,11 @@ import HeroAnimationVue from "~/components/HeroAnimation.vue";
 import Projects from "~/components/Projects.vue";
 import SectionSplit from "~/components/SectionSplit.vue";
 import Skills from "~/components/Skills.vue";
+import CurtainAnimation from "~/components/CurtainAnimation.vue";
 </script>
 
 <template>
+  <CurtainAnimation />
   <HeroAnimationVue />
   <SectionSplit />
   <About />

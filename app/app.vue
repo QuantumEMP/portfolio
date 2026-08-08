@@ -1,15 +1,10 @@
-<script setup lang="en" >
-definePageMeta({
-  layout: 'main',
-})
-</script>
-
-
 <template>
   <div>
     <NuxtRouteAnnouncer />
     <UApp>
-      <NuxtPage />
+      <NuxtLayout name="main">
+        <NuxtPage />
+      </NuxtLayout>
     </UApp>
   </div>
 </template>
