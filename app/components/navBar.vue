@@ -1,23 +1,21 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
-const route = useRoute()
+withDefaults(defineProps<{
+  orientation?: 'horizontal' | 'vertical'
+}>(), {
+  orientation: 'horizontal',
+})
 
 type JokerNavItem = NavigationMenuItem & { suit?: string }
 
-// A small helper so the template stays clean
-const redSuits = ['♥', '♦']
-const suitClass = (suit?: string) =>
-  redSuits.includes(suit ?? '')
-    ? 'text-[color:var(--color-night-bordeaux-500)]'
-    : 'text-[color:var(--color-baltic-blue-500)]'
-
-const items = computed<JokerNavItem[]>(() => [
+const items: JokerNavItem[] = [
   {
     label: 'Home',
     suit: '♥',
     slot: 'home' as const,
-    active: route.path === '/',
+    to: '/#home',
+    active: false,
     children: [
       {
         label: 'About',
@@ -27,9 +25,15 @@ const items = computed<JokerNavItem[]>(() => [
       },
       {
         label: 'The System',
-        description: 'Meet the six alters',
+        description: 'Meet the alters',
         suit: '♦',
         to: '/#system',
+      },
+      {
+        label: 'Skills',
+        description: 'Shuffle through the deck',
+        suit: '♥',
+        to: '/#skills',
       },
       {
         label: 'Work & Projects',
@@ -42,24 +46,20 @@ const items = computed<JokerNavItem[]>(() => [
   {
     label: 'Blog',
     suit: '♣',
-    to: '/blog',
-    active: route.path.startsWith('/blog'),
+    to: 'https://jude-rose.com/blogs',
+    target: '_blank',
   },
   {
     label: 'Contact Us',
     suit: '♦',
     to: '/#contact',
+    active: false,
   },
-  {
-    label: 'Login',
-    suit: '♠',
-    to: '/login',
-  },
-])
+]
 </script>
 
 <template>
-  <UNavigationMenu :items="items">
+  <UNavigationMenu :items="items" :orientation="orientation">
 
     <!-- Suit symbol for every top-level item -->
     <template #item-leading="{ item }">
@@ -70,8 +70,8 @@ const items = computed<JokerNavItem[]>(() => [
 
     <!-- Custom dropdown for the Home item -->
     <template #home-content="{ item }">
-      <ul class="grid gap-1 p-2 w-56">
-        <li v-for="child in item.children" :key="child.label">
+      <ul class="grid gap-1 p-2 w-60">
+        <li v-for="child in (item as JokerNavItem).children" :key="child.label">
           <ULink
             :to="child.to"
             class="flex items-start gap-3 rounded-md px-3 py-2 text-sm transition-colors hover:bg-elevated/50"

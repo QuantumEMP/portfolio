@@ -5,6 +5,8 @@
 
 @theme static {
   --font-sans: "Public Sans", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-comic: "Comic Neue", "Comic Sans MS", cursive;
 
   --color-baltic-blue-50: #edf2f8;
   --color-baltic-blue-100: #dbe4f0;
@@ -53,4 +55,40 @@
   --color-punch-red-800: #5c0a12;
   --color-punch-red-900: #2e0509;
   --color-punch-red-950: #200306;
+}
+
+/* ── Bridge the suit palette into Nuxt UI's tokens ───────── */
+:root,
+:root.dark {
+  --ui-primary:          var(--color-accent);
+  --ui-bg:               var(--color-bg);
+  --ui-bg-muted:         var(--color-surface);
+  --ui-bg-elevated:      var(--color-surface);
+  --ui-bg-accented:      var(--color-card);
+  --ui-border:           var(--color-border);
+  --ui-border-muted:     var(--color-border);
+  --ui-border-accented:  var(--color-accent-deep);
+  --ui-text:             var(--color-text);
+  --ui-text-highlighted: var(--color-text);
+  --ui-text-muted:       color-mix(in oklab, var(--color-text) 65%, transparent);
+  --ui-text-dimmed:      color-mix(in oklab, var(--color-text) 45%, transparent);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Clear the sticky header on #anchor jumps. Kept off <html> as scroll-padding,
+   which made focusing anything in the header scroll the page up. */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-text);
 }

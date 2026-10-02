@@ -17,8 +17,10 @@
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
+    "@iconify-json/lucide": "^1.2.138",
+    "@iconify-json/simple-icons": "^1.2.98",
     "@nuxt/eslint": "^1.16.0",
     "eslint": "^10.8.0",
-    "typescript": "^7.0.2"
+    "typescript": "^5.9"
   }
 }

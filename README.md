@@ -1,75 +1,18 @@
-# Nuxt Minimal Starter
+# Joker — Portfolio
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Portfolio for Jude Rose and the Quantum System. Built with Nuxt 4, Nuxt UI and GSAP.
 
-## Setup
-
-Make sure to install dependencies:
+## Development
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+pnpm dev        # http://localhost:3000
+pnpm build      # production build
+pnpm generate   # static site
 ```
 
-## Development Server
+## Where things live
 
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- `app/data/` — section content (alters, skills, projects, contact). Raw copy lives in `copy/`.
+- `app/assets/css/palettes.css` — suit palettes. Visitors pick one from the header dropdown (`ThemeSelect.vue`, stored in a cookie via `usePalette()`).
+- `app/components/CurtainAnimation.vue` → `HeroAnimation.vue` — opening sequence; the hero waits on `useCurtainDone()`.

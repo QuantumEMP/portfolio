@@ -4,19 +4,34 @@ import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
 
 gsap.registerPlugin(MorphSVGPlugin)
 
-const wrapper = ref<HTMLDivElement | null>(null)
+const curtainDone = useCurtainDone()
+const visible = ref(true)
+
+const line = ref<HTMLParagraphElement | null>(null)
 const leftPanel = ref<SVGPathElement | null>(null)
 const rightPanel = ref<SVGPathElement | null>(null)
 
+const finish = () => {
+  document.documentElement.style.overflow = ''
+  visible.value = false
+  curtainDone.value = true
+}
+
 onMounted(() => {
+  if (prefersReducedMotion()) return finish()
+
+  // No scrolling while the curtain is down
+  document.documentElement.style.overflow = 'hidden'
+
   const tl = gsap.timeline({
     delay: 0.3,
-    onComplete: () => wrapper.value?.remove(),
+    onComplete: finish,
   })
 
   tl
-    // ── Phase 1: panels hang still, let page load beneath ──
-    .set([leftPanel.value, rightPanel.value], { opacity: 1 })
+    // ── Phase 1: the request, delivered from behind the curtain ──
+    .fromTo(line.value, { opacity: 0, y: 12 }, { duration: 0.6, opacity: 1, y: 0, ease: 'power2.out' })
+    .to(line.value, { duration: 0.4, opacity: 0, ease: 'power2.in' }, '+=1.2')
 
     // ── Phase 2: fabric billows — leading edges wave inward
     //    as tension builds before the split ──
@@ -34,31 +49,36 @@ onMounted(() => {
     // ── Phase 3: curtains sweep apart — left exits left,
     //    right exits right, trailing edge still wavy ──
     .to(leftPanel.value, {
-      duration: 2,
+      duration: 1.8,
       morphSVG: { shape: '#left-exit', shapeIndex: 'auto' },
       ease: 'power4.inOut',
     })
     .to(rightPanel.value, {
-      duration: 2,
+      duration: 1.8,
       morphSVG: { shape: '#right-exit', shapeIndex: 'auto' },
       ease: 'power4.inOut',
     }, '<')
 
-    // ── Phase 4: fade out wrapper as the last sliver leaves ──
-    .to(wrapper.value, {
-      duration: 0,
-      opacity: 0,
-      ease: 'none',
-    }, '-=0.2')
+    // ── Phase 4: let the hero start while the last sliver leaves ──
+    .call(() => { curtainDone.value = true }, [], '-=0.6')
+})
+
+onBeforeUnmount(() => {
+  document.documentElement.style.overflow = ''
 })
 </script>
 
 <template>
   <div
-    ref="wrapper"
-    class="absolute inset-0 z-9999 flex pointer-events-none"
+    v-if="visible"
+    class="fixed inset-0 z-9999 flex"
     aria-hidden="true"
   >
+    <p ref="line" class="curtain-line">
+      "When you bring me out, can you introduce me as
+      <span class="font-comic font-bold">Joker</span>?"
+    </p>
+
     <svg
       class="w-full h-full"
       viewBox="0 0 100 100"
@@ -168,7 +188,6 @@ onMounted(() => {
         ref="leftPanel"
         d="M0,0 L50,0 L50,100 L0,100 Z"
         fill="url(#curtain-grad-left)"
-        opacity="0"
       />
 
       <!-- Right curtain panel -->
@@ -176,8 +195,29 @@ onMounted(() => {
         ref="rightPanel"
         d="M50,0 L100,0 L100,100 L50,100 Z"
         fill="url(#curtain-grad-right)"
-        opacity="0"
       />
     </svg>
   </div>
 </template>
+
+<style>
+.curtain-line {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35em;
+  flex-wrap: wrap;
+  padding: 2rem;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  color: var(--color-night-bordeaux-50);
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
+  pointer-events: none;
+  opacity: 0; /* faded in by the timeline */
+}
+</style>
