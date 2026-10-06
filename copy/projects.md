@@ -16,6 +16,8 @@ Jokers add the flavor
     - English to South African Sign Language Translator
         - https://github.com/QuantumEMP/sign-language-web
 - Example Client Work
-    - Dashboard Example
-        - 
+    - Fieldnote dashboard redesign
+        - https://case.dash.jok3r.win
+    - Kiln & Ash
+        - https://pottery.landing.jok3r.win
 

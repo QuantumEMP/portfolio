@@ -3,7 +3,8 @@ import type { Suit } from '~~/types/alters'
 
 const cards: { suit: Suit | '★', label: string, to: string }[] = [
   { suit: '♦', label: 'About', to: '/#about' },
-  { suit: '♥', label: 'Troupe', to: '/#system' },
+  // Hidden until the alters copy is finished; restore with <Alter /> in pages/index.vue
+  // { suit: '♥', label: 'Troupe', to: '/#system' },
   { suit: '♣', label: 'Juggler', to: '/#skills' },
   { suit: '♠', label: 'Sideshow', to: '/#work' },
   { suit: '★', label: 'Tickets', to: '/#contact' },
@@ -38,7 +39,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <nav class="fan" aria-label="Sections">
+  <nav class="fan" aria-label="Sections" :style="{ '--n': cards.length }">
     <!-- Desktop: every card is a link -->
     <ul class="fan-hand fan-hand--desktop">
       <li v-for="(card, i) in cards" :key="card.label" :style="{ '--i': i }">
@@ -128,7 +129,8 @@ onBeforeUnmount(() => {
   text-align: left;
   box-shadow: 4px 4px 0 var(--color-drop);
   transform-origin: 50% calc(100% + var(--fan-r));
-  rotate: calc((var(--i) - 2) * var(--fan-step));
+  /* centred on the middle card, however many are in the hand */
+  rotate: calc((var(--i) - (var(--n) - 1) / 2) * var(--fan-step));
   transition: translate 0.2s ease;
 }
 .fan-card--joker {

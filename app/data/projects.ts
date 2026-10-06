@@ -35,7 +35,18 @@ export const projectGroups: IProjectGroup[] = [
     title: 'Example Client Work',
     suit: '♣',
     projects: [
-      { name: 'Dashboard Example', description: 'Coming soon.' },
+      {
+        name: 'Fieldnote dashboard redesign',
+        url: 'https://case.dash.jok3r.win',
+        image: '/projects/fieldnote.png',
+        description: 'A before-and-after case study: a cluttered task dashboard made calm and readable.',
+      },
+      {
+        name: 'Kiln & Ash',
+        url: 'https://pottery.landing.jok3r.win',
+        image: '/projects/kiln-and-ash.png',
+        description: 'A landing page for weekend pottery workshops.',
+      },
     ],
   },
 ]
