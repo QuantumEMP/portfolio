@@ -64,11 +64,26 @@ section[id] {
 }
 
 /* ── Layout ──────────────────────────────────────────────── */
+:root {
+  /* Big-top side curtains and valance scallops (hero + intro curtain) */
+  --curtain-w: 1.5rem;
+  --scallop: 2.5rem;
+}
+@media (min-width: 1024px) {
+  :root { --curtain-w: clamp(4rem, 9.5vw, 8.5rem); --scallop: 5rem; }
+}
+
 .wrap {
   width: 100%;
   max-width: 70rem;
   margin-inline: auto;
   padding-inline: 1.5rem;
+}
+/* Content under the big top keeps clear of the side curtains */
+.hero .wrap,
+.topbar.wrap {
+  max-width: calc(70rem + 2 * var(--curtain-w));
+  padding-inline: calc(var(--curtain-w) + 1.5rem);
 }
 
 /* ── Colour blocks ───────────────────────────────────────── */

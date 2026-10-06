@@ -1,205 +1,141 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
-import { MorphSVGPlugin } from 'gsap/MorphSVGPlugin'
-
-gsap.registerPlugin(MorphSVGPlugin)
 
 const curtainDone = useCurtainDone()
 const visible = ref(true)
 
-const line = ref<HTMLParagraphElement | null>(null)
-const leftPanel = ref<SVGPathElement | null>(null)
-const rightPanel = ref<SVGPathElement | null>(null)
+const bubble = ref<HTMLParagraphElement | null>(null)
+const halves = ref<HTMLDivElement[]>([])
+
+let tl: gsap.core.Timeline | undefined
+
+const CURTAIN_SEEN_KEY = 'joker-curtain-seen'
+
+// The server always renders the curtain (it can't read sessionStorage).
+// This runs in <head> before the first paint and marks <html> when the
+// curtain was already seen, so CSS hides it with no flash on reloads.
+useHead({
+  script: [{
+    key: 'curtain-seen',
+    innerHTML: `try{if(sessionStorage.getItem('${CURTAIN_SEEN_KEY}'))document.documentElement.dataset.curtain='seen'}catch(e){}`,
+  }],
+})
+
+/**
+ * Whether the curtain should perform on this page load.
+ * Runs on the client only, before anything animates.
+ */
+const shouldPlayCurtain = (): boolean => {
+  // Once per browser session; storage can throw (private mode, blocked
+  // site data), and then the curtain simply plays
+  try {
+    if (sessionStorage.getItem(CURTAIN_SEEN_KEY)) return false
+    sessionStorage.setItem(CURTAIN_SEEN_KEY, '1')
+  }
+  catch {
+    // no storage: play it
+  }
+  return true
+}
 
 const finish = () => {
   document.documentElement.style.overflow = ''
+  removeSkipListeners()
   visible.value = false
   curtainDone.value = true
 }
 
+// Any click, key or scroll attempt skips straight to the open stage
+const skip = () => tl?.progress(1)
+const removeSkipListeners = () => {
+  window.removeEventListener('keydown', skip)
+  window.removeEventListener('wheel', skip)
+  window.removeEventListener('touchmove', skip)
+}
+
 onMounted(() => {
-  if (prefersReducedMotion()) return finish()
+  if (prefersReducedMotion() || !shouldPlayCurtain()) return finish()
 
-  // No scrolling while the curtain is down
   document.documentElement.style.overflow = 'hidden'
+  window.addEventListener('keydown', skip)
+  window.addEventListener('wheel', skip, { passive: true })
+  window.addEventListener('touchmove', skip, { passive: true })
 
-  const tl = gsap.timeline({
-    delay: 0.3,
-    onComplete: finish,
-  })
+  // Gather into the hero's own side curtains, so the hand-off is seamless
+  const gathered = document.querySelector<HTMLElement>('.hero-curtain')?.offsetWidth ?? 0
 
-  tl
-    // ── Phase 1: the request, delivered from behind the curtain ──
-    .fromTo(line.value, { opacity: 0, y: 12 }, { duration: 0.6, opacity: 1, y: 0, ease: 'power2.out' })
-    .to(line.value, { duration: 0.4, opacity: 0, ease: 'power2.in' }, '+=1.2')
-
-    // ── Phase 2: fabric billows — leading edges wave inward
-    //    as tension builds before the split ──
-    .to(leftPanel.value, {
-      duration: 0.6,
-      morphSVG: { shape: '#left-billow', shapeIndex: 'auto' },
-      ease: 'sine.inOut',
-    })
-    .to(rightPanel.value, {
-      duration: 0.6,
-      morphSVG: { shape: '#right-billow', shapeIndex: 'auto' },
-      ease: 'sine.inOut',
-    }, '<') // simultaneous
-
-    // ── Phase 3: curtains sweep apart — left exits left,
-    //    right exits right, trailing edge still wavy ──
-    .to(leftPanel.value, {
-      duration: 1.8,
-      morphSVG: { shape: '#left-exit', shapeIndex: 'auto' },
-      ease: 'power4.inOut',
-    })
-    .to(rightPanel.value, {
-      duration: 1.8,
-      morphSVG: { shape: '#right-exit', shapeIndex: 'auto' },
-      ease: 'power4.inOut',
-    }, '<')
-
-    // ── Phase 4: let the hero start while the last sliver leaves ──
-    .call(() => { curtainDone.value = true }, [], '-=0.6')
+  tl = gsap.timeline({ delay: 0.2, onComplete: finish })
+    // The request, from behind the curtain
+    .from(bubble.value, { scale: 0.85, opacity: 0, duration: 0.45, ease: 'back.out(2)' })
+    .to(bubble.value, { y: -24, opacity: 0, duration: 0.3, ease: 'power2.in' }, '+=1')
+    // Both halves gather to the sides; the pleats bunch as they go
+    .to(halves.value, { width: gathered, duration: 1.3, ease: 'power3.inOut' }, '-=0.05')
+    // Start the hero's act while the fabric settles
+    .call(() => { curtainDone.value = true }, [], '-=0.45')
 })
 
 onBeforeUnmount(() => {
+  tl?.kill()
+  removeSkipListeners()
   document.documentElement.style.overflow = ''
 })
 </script>
 
 <template>
-  <div
-    v-if="visible"
-    class="fixed inset-0 z-9999 flex"
-    aria-hidden="true"
-  >
-    <p ref="line" class="curtain-line">
-      <span class="curtain-bubble">
-        "When you bring me out, can you introduce me as
-        <span class="curtain-joker">Joker</span>?"
-      </span>
+  <div v-if="visible" class="ct" aria-hidden="true" @click="skip">
+    <div v-for="side in ['left', 'right']" :key="side" ref="halves" class="ct-half" :class="`ct-half--${side}`">
+      <span v-for="n in 4" :key="n" class="ct-pleat" />
+    </div>
+
+    <!-- Same valance as the hero, so it never moves -->
+    <div class="hero-valance" />
+
+    <p ref="bubble" class="ct-bubble">
+      "When you bring me out, can you introduce me as
+      <span class="ct-joker">Joker</span>?"
     </p>
-
-    <svg
-      class="w-full h-full"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!--
-        ═══════════════════════════════════════════════
-        MORPH TARGET SHAPES  (hidden — morph destinations only)
-
-        Coordinate system: viewBox 0 0 100 100
-          Left panel  occupies x: 0  → 50
-          Right panel occupies x: 50 → 100
-
-        The "inner" edge (right edge of left / left edge of right)
-        is what billows and then sweeps off screen.
-        ═══════════════════════════════════════════════
-      -->
-
-      <!-- LEFT: billow inward — right edge curves toward centre -->
-      <path
-        id="left-billow"
-        d="
-          M0,0
-          L50,0
-          C50,18 46,36 48,50
-          C46,64 50,82 50,100
-          L0,100
-          Z
-        "
-        visibility="hidden"
-      />
-
-      <!-- LEFT: fully exited to the left — thin sliver off screen -->
-      <path
-        id="left-exit"
-        d="
-          M-100,0
-          L-50,0
-          C-48,18 -52,36 -50,50
-          C-52,64 -48,82 -50,100
-          L-100,100
-          Z
-        "
-        visibility="hidden"
-      />
-
-      <!-- RIGHT: billow inward — left edge curves toward centre -->
-      <path
-        id="right-billow"
-        d="
-          M50,0
-          C50,18 54,36 52,50
-          C54,64 50,82 50,100
-          L100,100
-          L100,0
-          Z
-        "
-        visibility="hidden"
-      />
-
-      <!-- RIGHT: fully exited to the right -->
-      <path
-        id="right-exit"
-        d="
-          M150,0
-          C150,18 154,36 152,50
-          C154,64 150,82 150,100
-          L200,100
-          L200,0
-          Z
-        "
-        visibility="hidden"
-      />
-
-      <!--
-        ═══════════════════════════════════════════════
-        LIVE PANELS  (start as two flat half-rectangles)
-        Tent-stripe curtain in the deck colours
-        ═══════════════════════════════════════════════
-      -->
-
-      <!-- Flat tent stripes in the active deck's suit and paper colours -->
-      <defs>
-        <pattern id="curtain-stripes" width="8" height="100" patternUnits="userSpaceOnUse">
-          <rect width="4" height="100" fill="var(--color-primary)" />
-          <rect x="4" width="4" height="100" fill="var(--color-paper)" />
-        </pattern>
-      </defs>
-
-      <!-- Left curtain panel -->
-      <path
-        ref="leftPanel"
-        d="M0,0 L50,0 L50,100 L0,100 Z"
-        fill="url(#curtain-stripes)"
-      />
-
-      <!-- Right curtain panel -->
-      <path
-        ref="rightPanel"
-        d="M50,0 L100,0 L100,100 L50,100 Z"
-        fill="url(#curtain-stripes)"
-      />
-    </svg>
   </div>
 </template>
 
 <style>
-.curtain-line {
-  position: absolute;
+.ct {
+  position: fixed;
   inset: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0; /* faded in by the timeline */
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
 }
-.curtain-bubble {
+/* Hidden before first paint: already seen this session (set by the head
+   script), or the visitor prefers reduced motion */
+[data-curtain="seen"] .ct {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ct { display: none; }
+}
+
+/* Each half is four tent-stripe pleats; narrowing the half bunches them */
+.ct-half {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  display: flex;
+}
+.ct-half--left  { left: 0;  border-right: 3px solid var(--color-ink); }
+.ct-half--right { right: 0; border-left: 3px solid var(--color-ink); }
+.ct-pleat {
+  flex: 1;
+  background: var(--color-primary);
+}
+.ct-pleat:nth-child(even) {
+  background: var(--color-paper);
+}
+
+.ct-bubble {
+  position: relative;
+  z-index: 2;
   max-width: 34rem;
   margin: 1.5rem;
   padding: 1.25rem 1.75rem;
@@ -214,7 +150,7 @@ onBeforeUnmount(() => {
   font-size: clamp(1.25rem, 3vw, 1.875rem);
   line-height: 1.35;
 }
-.curtain-joker {
+.ct-joker {
   font-family: var(--font-kings);
   font-style: normal;
   font-size: 1.3em;

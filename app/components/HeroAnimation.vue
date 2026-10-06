@@ -91,7 +91,6 @@ onBeforeUnmount(() => tl?.kill())
 
 <style>
 .hero {
-  --scallop: 2.5rem;
   position: relative;
   overflow: hidden;
   min-height: 100svh;
@@ -101,7 +100,7 @@ onBeforeUnmount(() => tl?.kill())
   padding-block: 9rem 8rem;
 }
 @media (min-width: 1024px) {
-  .hero { --scallop: 5rem; padding-block: 14rem 9rem; }
+  .hero { padding-block: 14rem 9rem; }
 }
 
 /* Tent valance: a striped band with alternating suit/paper scallops
@@ -126,22 +125,19 @@ onBeforeUnmount(() => tl?.kill())
       var(--scallop) 0 / calc(var(--scallop) * 2) 100% repeat-x;
 }
 
-/* Side curtains in tent stripes */
+/* Side curtains: always four tent stripes, so the intro curtain
+   (CurtainAnimation) can gather into exactly this shape */
 .hero-curtain {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 1rem;
-  background: repeating-linear-gradient(90deg, var(--color-primary) 0 0.5rem, var(--color-paper) 0.5rem 1rem);
+  width: var(--curtain-w);
+  background: linear-gradient(90deg,
+    var(--color-primary) 0 25%, var(--color-paper) 0 50%,
+    var(--color-primary) 0 75%, var(--color-paper) 0);
 }
 .hero-curtain--left  { left: 0; border-right: 3px solid var(--color-ink); }
 .hero-curtain--right { right: 0; border-left: 3px solid var(--color-ink); }
-@media (min-width: 1024px) {
-  .hero-curtain {
-    width: clamp(4rem, 9.5vw, 8.5rem);
-    background: repeating-linear-gradient(90deg, var(--color-primary) 0 2.125rem, var(--color-paper) 2.125rem 4.25rem);
-  }
-}
 
 .hero-grid {
   position: relative;
