@@ -63,6 +63,45 @@ section[id] {
   outline-offset: 3px;
 }
 
+/* Gold rings vanish on a gold block; ink carries the edge there */
+.blk-gold :focus-visible {
+  outline-color: var(--color-ink);
+}
+
+/* ── Brand book tokens ───────────────────────────────────── */
+/* Straight from the Joker Big Top tokens.json, the same values the
+   tools site (tools.jok3r.win) uses, so every tent is built alike */
+:root {
+  --space-chip: 10px;
+  --space-stack: 16px;
+  --space-gutter: 24px;
+  --space-object: 32px;
+  --space-grid: 56px;
+  --space-block-sm: 72px;
+  --space-block: 120px;
+  --measure: 1120px;
+
+  --radius-poster: 4px;
+  --radius-note: 6px;
+  --radius-input: 10px;
+  --radius-card: 12px;
+  --radius-ticket: 16px;
+  --radius-panel: 20px;
+  --radius-joker: 22px;
+  --radius-pill: 999px;
+
+  --stroke-chip: 2.5px;
+  --stroke-object: 3px;
+  --stroke-feature: 4px;
+  --stroke-picked: 5px;
+
+  --tilt-joker: -7deg;
+  --tilt-note: -2.5deg;
+  --tilt-poster: 2deg;
+  --tilt-sticker: 8deg;
+  --tilt-fan: 12deg;
+}
+
 /* ── Layout ──────────────────────────────────────────────── */
 :root {
   /* Big-top side curtains and valance scallops (hero + intro curtain) */
@@ -75,15 +114,15 @@ section[id] {
 
 .wrap {
   width: 100%;
-  max-width: 70rem;
+  max-width: var(--measure);
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: var(--space-gutter);
 }
 /* Content under the big top keeps clear of the side curtains */
 .hero .wrap,
 .topbar.wrap {
-  max-width: calc(70rem + 2 * var(--curtain-w));
-  padding-inline: calc(var(--curtain-w) + 1.5rem);
+  max-width: calc(var(--measure) + 2 * var(--curtain-w));
+  padding-inline: calc(var(--curtain-w) + var(--space-gutter));
 }
 
 /* ── Colour blocks ───────────────────────────────────────── */
@@ -91,11 +130,11 @@ section[id] {
 .blk {
   background: var(--blk-bg);
   color: var(--blk-fg);
-  border-top: 4px solid var(--color-ink);
-  padding-block: 4.5rem 5rem;
+  border-top: var(--stroke-feature) solid var(--color-ink);
+  padding-block: var(--space-block-sm) 80px;
 }
 @media (min-width: 1024px) {
-  .blk { padding-block: 7.5rem; }
+  .blk { padding-block: var(--space-block); }
 }
 .blk-base    { --blk-bg: var(--color-base);    --blk-fg: var(--color-on-base); --blk-drop: var(--color-drop); }
 .blk-primary { --blk-bg: var(--color-primary); --blk-fg: var(--color-paper);   --blk-drop: var(--color-ink); }
@@ -106,7 +145,7 @@ section[id] {
 .stock {
   background: var(--color-paper);
   color: var(--color-ink);
-  border: 3px solid var(--color-ink);
+  border: var(--stroke-object) solid var(--color-ink);
   box-shadow: 7px 7px 0 var(--blk-drop, var(--color-ink));
 }
 
@@ -115,33 +154,45 @@ section[id] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.6rem;
-  border: 3px solid var(--color-ink);
-  border-radius: 999px;
+  gap: 8px;
+  padding: 13px 26px;
+  border: var(--stroke-object) solid var(--color-ink);
+  border-radius: var(--radius-pill);
   background: var(--color-paper);
   color: var(--color-ink);
   font-weight: 700;
+  font-size: 17px;
   line-height: 1.2;
   box-shadow: 5px 5px 0 var(--blk-drop, var(--color-ink));
+  cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.btn:hover {
+.btn:hover:not(:disabled) {
   transform: translate(-2px, -2px);
   box-shadow: 7px 7px 0 var(--blk-drop, var(--color-ink));
 }
-.btn:active {
+.btn:active:not(:disabled) {
   transform: translate(3px, 3px);
   box-shadow: 2px 2px 0 var(--blk-drop, var(--color-ink));
 }
 .btn-gold { background: var(--color-gold); }
-.btn:disabled { opacity: 0.7; cursor: progress; }
+/* Disabled sits pressed into its shadow, no fade */
+.btn:disabled {
+  cursor: progress;
+  box-shadow: none;
+  transform: translate(5px, 5px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
 
 /* Section headings */
 .sec-title {
   font-family: var(--font-serif);
+  font-weight: 400;
   font-size: clamp(2.75rem, 6vw, 4.5rem);
   line-height: 1.05;
+  text-wrap: balance;
 }
 .sec-sub {
   margin-top: 0.5rem;
@@ -151,15 +202,16 @@ section[id] {
   line-height: 1.35;
 }
 
-/* Stickers */
+/* Stickers: decorative, one per screen at most */
 .sticker {
   display: inline-block;
-  padding: 0.35rem 0.9rem;
-  border: 3px solid var(--color-ink);
-  border-radius: 6px;
+  padding: 5px 14px;
+  border: var(--stroke-object) solid var(--color-ink);
+  border-radius: var(--radius-note);
   background: var(--color-gold);
   color: var(--color-ink);
   font-family: var(--font-kings);
-  font-size: 1.75rem;
+  font-size: 28px;
   line-height: 1.2;
+  rotate: var(--tilt-sticker);
 }

@@ -46,46 +46,47 @@ useHead({
   .topbar { top: 6.5rem; }
 }
 
-/* The logo is a lit marquee sign */
+/* The logo is a lit marquee sign (same build as the tools site's) */
 .marquee {
   position: relative;
   display: grid;
   place-items: center;
-  width: 8.5rem;
-  height: 3.75rem;
-  border: 3px solid var(--color-ink);
-  border-radius: 0.9rem;
+  width: 136px;
+  height: 60px;
+  border: var(--stroke-feature) solid var(--color-ink);
+  border-radius: var(--radius-ticket);
   background: var(--color-primary);
   color: var(--color-paper);
-  box-shadow: 5px 5px 0 var(--color-gold);
+  box-shadow: 6px 6px 0 var(--color-gold);
 }
 .pal-club .marquee,
-.pal-diamond .marquee { box-shadow: 5px 5px 0 var(--color-ink); }
+.pal-diamond .marquee { box-shadow: 6px 6px 0 var(--color-ink); }
 @media (min-width: 1024px) {
-  .marquee { width: 15.5rem; height: 6.5rem; border-width: 4px; border-radius: 1.4rem; }
+  .marquee { width: 248px; height: 104px; border-radius: var(--radius-joker); }
 }
 .marquee-bulbs {
   position: absolute;
-  inset: 0.45rem 0.8rem;
+  inset: 6px 10px;
   /* two rows of gold bulbs, top and bottom */
   background:
-    radial-gradient(circle, var(--color-gold) 0 3px, transparent 3.5px) top left / 1.25rem 0.5rem repeat-x,
-    radial-gradient(circle, var(--color-gold) 0 3px, transparent 3.5px) bottom left / 1.25rem 0.5rem repeat-x;
+    radial-gradient(circle, var(--color-gold) 0 3px, transparent 3.5px) top left / 14px 7px repeat-x,
+    radial-gradient(circle, var(--color-gold) 0 3px, transparent 3.5px) bottom left / 14px 7px repeat-x;
 }
 @media (min-width: 1024px) {
   .marquee-bulbs {
-    inset: 0.6rem 1.2rem;
+    inset: 10px 19px;
     background:
-      radial-gradient(circle, var(--color-gold) 0 5px, transparent 5.5px) top left / 1.6rem 0.75rem repeat-x,
-      radial-gradient(circle, var(--color-gold) 0 5px, transparent 5.5px) bottom left / 1.6rem 0.75rem repeat-x;
+      radial-gradient(circle, var(--color-gold) 0 5px, transparent 5.5px) top left / 25.6px 12px repeat-x,
+      radial-gradient(circle, var(--color-gold) 0 5px, transparent 5.5px) bottom left / 25.6px 12px repeat-x;
   }
 }
 .marquee-name {
+  position: relative;
   font-family: var(--font-kings);
-  font-size: 2rem;
+  font-size: 32px;
   line-height: 1;
 }
 @media (min-width: 1024px) {
-  .marquee-name { font-size: 3.6rem; }
+  .marquee-name { font-size: 58px; }
 }
 </style>

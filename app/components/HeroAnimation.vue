@@ -4,6 +4,7 @@
     <div class="hero-valance" aria-hidden="true" />
     <div class="hero-curtain hero-curtain--left" aria-hidden="true" />
     <div class="hero-curtain hero-curtain--right" aria-hidden="true" />
+    <TentMenu />
 
     <div class="wrap hero-grid">
       <div class="hero-copy">
