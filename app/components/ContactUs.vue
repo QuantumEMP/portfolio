@@ -40,169 +40,199 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <section id="contact" class="cu">
-    <UContainer>
-      <SectionHeading
-        eyebrow="Contact Us"
-        suit="♦"
-        title="Ready to deal?"
-        subtitle="Book a consultation and commission a dream come true."
-      />
+  <section id="contact" class="tk blk blk-primary">
+    <div class="wrap tk-grid">
+      <div class="tk-info">
+        <h2 class="tk-title">Deal me in</h2>
+        <p class="sec-sub">Book a consultation and commission a dream come true.</p>
+        <p>
+          Always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+          Whether you have a question or just want to say hi, reach out.
+        </p>
+        <ul class="tk-facts">
+          <li><a :href="`mailto:${contact.email}`" class="tk-mail">{{ contact.email }}</a></li>
+          <li>{{ contact.location }}</li>
+        </ul>
+        <div class="tk-socials">
+          <a
+            v-for="social in contact.socials"
+            :key="social.label"
+            :href="social.to"
+            target="_blank"
+            rel="noopener"
+            class="btn"
+          >
+            <UIcon :name="social.icon" class="size-4" />
+            {{ social.label }}
+          </a>
+        </div>
+      </div>
 
-      <div class="cu-grid">
-        <div class="cu-info">
-          <p class="cu-lead">
-            Always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-            Whether you have a question or just want to say hi, reach out.
-          </p>
-
-          <ul class="cu-list">
-            <li>
-              <UIcon name="i-lucide-mail" class="cu-icon" />
-              <ULink :to="`mailto:${contact.email}`" class="cu-link">{{ contact.email }}</ULink>
-            </li>
-            <li>
-              <UIcon name="i-lucide-map-pin" class="cu-icon" />
-              <span>{{ contact.location }}</span>
-            </li>
-          </ul>
-
-          <div class="flex gap-2">
-            <UButton
-              v-for="social in contact.socials"
-              :key="social.label"
-              :to="social.to"
-              :icon="social.icon"
-              :label="social.label"
-              target="_blank"
-              color="neutral"
-              variant="outline"
-            />
-          </div>
-
-          <img class="cu-cards" src="/backgrounds/Aces.png" alt="" width="634" height="886" loading="lazy">
+      <!-- Admit-one ticket: form on the body, stub behind the perforation -->
+      <div class="tk-ticket">
+        <div v-if="status === 'sent'" class="tk-body tk-sent" role="status">
+          <h3 class="tk-sent-title">Your hand has been dealt.</h3>
+          <p>Message received. We'll be in touch soon.</p>
+          <button type="button" class="btn" @click="status = 'idle'">Send another</button>
         </div>
 
-        <div v-if="status === 'sent'" class="cu-form cu-sent" role="status">
-          <UIcon name="i-lucide-circle-check" class="size-10 text-success" />
-          <h3 class="cu-sent-title">Your hand has been dealt.</h3>
-          <p class="text-muted">Message received. We'll be in touch soon.</p>
-          <UButton label="Send another" color="neutral" variant="outline" @click="status = 'idle'" />
-        </div>
-
-        <form v-else class="cu-form" @submit.prevent="onSubmit">
+        <form v-else class="tk-body" @submit.prevent="onSubmit">
           <!-- Honeypot: hidden from people, bots fill it in -->
           <input
             v-model="form.company"
-            class="cu-hp"
+            class="tk-hp"
             type="text"
             name="company"
             tabindex="-1"
             autocomplete="off"
             aria-hidden="true"
           >
-          <UFormField label="Name" name="name" required>
-            <UInput v-model="form.name" placeholder="Jude Rose" class="w-full" maxlength="100" required />
-          </UFormField>
-          <UFormField label="Email" name="email" required>
-            <UInput v-model="form.email" type="email" placeholder="hello@example.com" class="w-full" required />
-          </UFormField>
-          <UFormField label="Message" name="message" required>
-            <UTextarea
-              v-model="form.message"
-              placeholder="Tell us about the dream..."
-              :rows="6"
-              class="w-full"
-              maxlength="5000"
-              required
-            />
-          </UFormField>
-          <UButton
-            type="submit"
-            :label="status === 'sending' ? 'Sending...' : 'Send message'"
-            :loading="status === 'sending'"
-            trailing-icon="i-lucide-send"
-            size="lg"
-            block
-          />
+          <label class="tk-field">
+            <span>Name</span>
+            <input v-model="form.name" name="name" placeholder="Jude Rose" maxlength="100" autocomplete="name" required>
+          </label>
+          <label class="tk-field">
+            <span>Email</span>
+            <input v-model="form.email" type="email" name="email" placeholder="hello@example.com" autocomplete="email" required>
+          </label>
+          <label class="tk-field">
+            <span>Message</span>
+            <textarea v-model="form.message" name="message" placeholder="Tell us about the dream..." rows="5" maxlength="5000" required />
+          </label>
+          <button type="submit" class="btn btn-gold tk-send" :disabled="status === 'sending'">
+            {{ status === 'sending' ? 'Sending...' : 'Send message' }}
+          </button>
         </form>
+
+        <div class="tk-stub" aria-hidden="true">Admit one</div>
       </div>
-    </UContainer>
+    </div>
   </section>
 </template>
 
 <style>
-.cu {
-  padding: 6rem 0;
-}
-.cu-grid {
+.tk-grid {
   display: grid;
   gap: 3rem;
-}
-@media (min-width: 1024px) {
-  .cu-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
-}
-.cu-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-.cu-lead {
-  line-height: 1.75;
-  color: var(--ui-text-muted);
-}
-.cu-list {
-  display: grid;
-  gap: 1rem;
-}
-.cu-list li {
-  display: flex;
   align-items: center;
-  gap: 0.75rem;
-  color: var(--color-text);
-}
-.cu-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--color-accent);
-}
-.cu-link:hover {
-  color: var(--color-accent);
-}
-.cu-cards {
-  display: none;
-  width: 14rem;
-  rotate: -10deg;
-  margin-top: auto;
-  filter: drop-shadow(0 24px 32px rgb(0 0 0 / 0.5));
 }
 @media (min-width: 1024px) {
-  .cu-cards { display: block; }
+  .tk-grid { grid-template-columns: 1fr 1.45fr; gap: 4rem; }
 }
-.cu-form {
+.tk-info {
   display: grid;
   gap: 1.25rem;
-  align-self: start;
-  padding: 2rem;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  background: var(--color-card);
+  justify-items: start;
 }
-.cu-hp {
+.tk-title {
+  font-family: var(--font-kings);
+  font-weight: 400;
+  font-size: clamp(4rem, 8vw, 6rem);
+  line-height: 1;
+}
+.tk-info > .sec-sub { margin-top: -0.5rem; }
+.tk-facts { display: grid; gap: 0.25rem; }
+.tk-mail {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+.tk-socials { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* ── The ticket ── */
+.tk-ticket {
+  --notch: 1.4rem;
+  position: relative;
+  display: grid;
+  border: 4px solid var(--color-ink);
+  border-radius: 1rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 10px 10px 0 var(--color-ink);
+}
+/* Notches punched out at both ends of the perforation */
+.tk-ticket::before,
+.tk-ticket::after {
+  content: "";
+  position: absolute;
+  width: calc(var(--notch) * 2);
+  height: calc(var(--notch) * 2);
+  border: 4px solid var(--color-ink);
+  border-radius: 50%;
+  background: var(--blk-bg);
+}
+.tk-body {
+  display: grid;
+  gap: 1rem;
+  padding: 1.75rem 1.5rem;
+}
+.tk-stub {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border-top: 3px dashed var(--color-ink);
+  font-family: var(--font-kings);
+  font-size: 2.75rem;
+  line-height: 1;
+  color: var(--color-primary);
+}
+/* Mobile: stub along the bottom, notches on the left and right */
+.tk-ticket::before { left: calc(var(--notch) * -1 - 4px); bottom: calc(5rem - var(--notch)); }
+.tk-ticket::after  { right: calc(var(--notch) * -1 - 4px); bottom: calc(5rem - var(--notch)); }
+.tk-stub { height: 5rem; }
+
+/* Desktop: stub on the right, notches top and bottom */
+@media (min-width: 1024px) {
+  .tk-ticket { grid-template-columns: 1fr 9rem; }
+  .tk-body { padding: 2.25rem 2.5rem; }
+  .tk-stub {
+    height: auto;
+    border-top: 0;
+    border-left: 3px dashed var(--color-ink);
+    writing-mode: vertical-rl;
+    font-size: 3.25rem;
+  }
+  .tk-ticket::before { left: auto; right: calc(9rem - var(--notch) - 2px); top: calc(var(--notch) * -1 - 4px); bottom: auto; }
+  .tk-ticket::after  { right: calc(9rem - var(--notch) - 2px); bottom: calc(var(--notch) * -1 - 4px); }
+}
+
+.tk-field {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+.tk-field input,
+.tk-field textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 2.5px solid var(--color-ink);
+  border-radius: 0.6rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-weight: 400;
+  font-size: 1rem;
+}
+.tk-field input::placeholder,
+.tk-field textarea::placeholder { color: color-mix(in srgb, var(--color-ink) 60%, var(--color-paper)); }
+.tk-field input:focus-visible,
+.tk-field textarea:focus-visible { outline-offset: 1px; }
+.tk-send { justify-self: start; --blk-drop: var(--color-ink); }
+.tk-hp {
   position: absolute;
   left: -9999px;
   width: 1px;
   height: 1px;
   opacity: 0;
 }
-.cu-sent {
-  justify-items: center;
-  text-align: center;
-  padding: 3rem 2rem;
+.tk-sent {
+  justify-items: start;
+  align-content: center;
+  min-height: 20rem;
 }
-.cu-sent-title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--color-text);
+.tk-sent-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 2rem;
 }
 </style>

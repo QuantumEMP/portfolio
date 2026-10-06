@@ -11,7 +11,6 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'description', content: 'Joker: websites, apps and games by Jude Rose and the Quantum System. Introduce a little anarchy.' },
-        { name: 'theme-color', content: '#1f040b' },
       ],
     },
   },
@@ -25,10 +24,9 @@ export default defineNuxtConfig({
     contactFrom: 'Joker Portfolio <onboarding@resend.dev>',
   },
 
-  // The whole site is built on the dark suit palettes
-  colorMode: {
-    preference: 'dark',
-    fallback: 'dark',
+  // Light/dark comes from the suit palette class on <html>, not Nuxt UI's colour mode
+  ui: {
+    colorMode: false,
   },
 
   // Ship these with the app so SSR can render them (the scanner misses icons passed via props/data)
@@ -50,9 +48,11 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Public Sans', provider: 'google', weights: [400, 500, 600, 700] },
-      { name: 'Playfair Display', provider: 'google', weights: [400, 700], styles: ['normal', 'italic'] },
-      { name: 'Comic Neue', provider: 'google', weights: [400, 700] },
+      { name: 'DM Serif Display', provider: 'google', weights: [400] },
+      { name: 'DM Serif Text', provider: 'google', weights: [400], styles: ['normal', 'italic'] },
+      { name: 'Comfortaa', provider: 'google', weights: [400, 700] },
+      { name: 'Kings', provider: 'google', weights: [400] },
+      { name: 'Rye', provider: 'google', weights: [400] },
     ],
   },
 })

@@ -5,130 +5,124 @@ const prettyUrl = (url: string) => url.replace(/^https?:\/\//, '')
 </script>
 
 <template>
-  <section id="work" class="pr">
-    <UContainer>
-      <SectionHeading
-        eyebrow="Work & Projects"
-        suit="♠"
-        title="The internet is a well of knowledge."
-        subtitle="Jokers add the flavour."
-      />
+  <section id="work" class="ss blk blk-paper">
+    <div class="wrap">
+      <h2 class="sec-title">The sideshow</h2>
+      <p class="sec-sub">Step right up and see the work.</p>
 
-      <div class="pr-groups">
-        <div v-for="group in projectGroups" :key="group.title">
-          <h3 class="pr-group-title">
-            <span :class="suitClass(group.suit)">{{ group.suit }}</span>
-            {{ group.title }}
-          </h3>
+      <ul class="ss-wall">
+        <li v-for="group in projectGroups" :key="group.title" class="ss-poster">
+          <SuitIcon :suit="group.suit" class="ss-suit" />
+          <p class="ss-kicker">The astonishing</p>
+          <h3 class="ss-title">{{ group.title }}</h3>
 
-          <ul class="pr-grid">
-            <li v-for="project in group.projects" :key="project.name" class="pr-card">
-              <div v-if="project.image" class="pr-image">
-                <img :src="project.image" :alt="project.name" loading="lazy">
-              </div>
-
-              <div class="pr-content">
-                <h4 class="pr-name">{{ project.name }}</h4>
-                <p v-if="project.description" class="pr-desc">{{ project.description }}</p>
-
-                <div class="pr-links">
-                  <UButton
-                    v-if="project.url"
-                    :to="project.url"
-                    :label="prettyUrl(project.url)"
-                    target="_blank"
-                    trailing-icon="i-lucide-arrow-up-right"
-                    size="sm"
-                    variant="soft"
-                  />
-                  <UButton
-                    v-if="project.repo"
-                    :to="project.repo"
-                    label="Source"
-                    target="_blank"
-                    icon="i-simple-icons-github"
-                    size="sm"
-                    color="neutral"
-                    variant="outline"
-                  />
-                </div>
-              </div>
+          <ul class="ss-acts">
+            <li v-for="project in group.projects" :key="project.name" class="ss-act">
+              <img
+                v-if="project.image"
+                :src="project.image"
+                :alt="`Screenshot of ${project.name}`"
+                class="ss-photo"
+                loading="lazy"
+              >
+              <h4 class="ss-name">{{ project.name }}</h4>
+              <p v-if="project.description" class="ss-desc">{{ project.description }}</p>
+              <p class="ss-links">
+                <a v-if="project.url" :href="project.url" target="_blank" rel="noopener">{{ prettyUrl(project.url) }}</a>
+                <a v-if="project.repo" :href="project.repo" target="_blank" rel="noopener">See the source</a>
+              </p>
             </li>
           </ul>
-        </div>
-      </div>
-    </UContainer>
+        </li>
+      </ul>
+    </div>
   </section>
 </template>
 
 <style>
-.pr {
-  padding: 6rem 0;
-}
-.pr-groups {
+.ss-wall {
   display: grid;
-  gap: 3.5rem;
+  gap: 2.5rem 1.75rem;
+  margin-top: 3rem;
+  align-items: start;
 }
-.pr-group-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  color: var(--color-text);
+@media (min-width: 640px) {
+  .ss-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-.pr-grid {
+@media (min-width: 1024px) {
+  .ss-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 3.5rem; }
+}
+
+/* A sideshow poster: one flat block, ink border, hard shadow */
+.ss-poster {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  justify-items: center;
+  gap: 0.75rem;
+  padding: 1.6rem 1.4rem 1.75rem;
+  border: 4px solid var(--color-ink);
+  border-radius: 4px;
+  box-shadow: 8px 8px 0 var(--color-ink);
+  text-align: center;
+  rotate: -2deg;
 }
-.pr-card {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
-  background: var(--color-card);
-  transition: transform 0.25s ease, border-color 0.25s ease;
+.ss-poster:nth-child(even) { rotate: 2deg; }
+.ss-poster:nth-child(4n + 1) { background: var(--color-primary); color: var(--color-paper); }
+.ss-poster:nth-child(4n + 2) { background: var(--color-ink);     color: var(--color-paper); }
+.ss-poster:nth-child(4n + 3) { background: var(--color-gold);    color: var(--color-ink); }
+.ss-poster:nth-child(4n + 4) { background: var(--color-paper);   color: var(--color-ink); }
+
+.ss-suit { font-size: 2rem; }
+.ss-poster:nth-child(4n + 2) .ss-suit { color: var(--color-primary); }
+.ss-kicker {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1rem;
 }
-.pr-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-accent-deep);
-}
-.pr-image {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 16 / 9;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
-}
-.pr-image img {
+.ss-title {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  padding-bottom: 0.9rem;
+  border-bottom: 3px solid currentColor;
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: 1.875rem;
+  line-height: 1.1;
 }
-.pr-content {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.5rem;
+.ss-acts {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
 }
-.pr-name {
-  font-weight: 600;
-  font-size: 1.125rem;
-  color: var(--color-text);
+.ss-act {
+  display: grid;
+  gap: 0.2rem;
 }
-.pr-desc {
+.ss-photo {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  margin-bottom: 0.4rem;
+  border: 3px solid var(--color-ink);
+  background: var(--color-paper);
+}
+.ss-name {
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.ss-desc {
   font-size: 0.9375rem;
-  color: var(--ui-text-muted);
 }
-.pr-links {
+.ss-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding-top: 1rem;
+  justify-content: center;
+  gap: 0.2rem 0.9rem;
+  font-size: 0.9375rem;
+}
+.ss-links a {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  word-break: break-word;
 }
 </style>

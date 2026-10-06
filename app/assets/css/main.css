@@ -4,84 +4,49 @@
 @import "./palettes.css";
 
 @theme static {
-  --font-sans: "Public Sans", sans-serif;
-  --font-display: "Playfair Display", serif;
-  --font-comic: "Comic Neue", "Comic Sans MS", cursive;
-
-  --color-baltic-blue-50: #edf2f8;
-  --color-baltic-blue-100: #dbe4f0;
-  --color-baltic-blue-200: #b7cae1;
-  --color-baltic-blue-300: #92afd3;
-  --color-baltic-blue-400: #6e95c4;
-  --color-baltic-blue-500: #4a7ab5;
-  --color-baltic-blue-600: #3b6291;
-  --color-baltic-blue-700: #2c496d;
-  --color-baltic-blue-800: #1e3148;
-  --color-baltic-blue-900: #0f1824;
-  --color-baltic-blue-950: #0a1119;
-
-  --color-lavender-grey-50: #f1f1f3;
-  --color-lavender-grey-100: #e3e4e8;
-  --color-lavender-grey-200: #c7c8d1;
-  --color-lavender-grey-300: #acadb9;
-  --color-lavender-grey-400: #9092a2;
-  --color-lavender-grey-500: #74768b;
-  --color-lavender-grey-600: #5d5f6f;
-  --color-lavender-grey-700: #464753;
-  --color-lavender-grey-800: #2e2f38;
-  --color-lavender-grey-900: #17181c;
-  --color-lavender-grey-950: #101113;
-
-  --color-night-bordeaux-50: #fce9ed;
-  --color-night-bordeaux-100: #f9d2dc;
-  --color-night-bordeaux-200: #f3a5b9;
-  --color-night-bordeaux-300: #ed7895;
-  --color-night-bordeaux-400: #e74b72;
-  --color-night-bordeaux-500: #e01f4f;
-  --color-night-bordeaux-600: #b4183f;
-  --color-night-bordeaux-700: #87122f;
-  --color-night-bordeaux-800: #5a0c20;
-  --color-night-bordeaux-900: #2d0610;
-  --color-night-bordeaux-950: #1f040b;
-
-  --color-punch-red-50: #fde8ea;
-  --color-punch-red-100: #fad1d5;
-  --color-punch-red-200: #f5a3ab;
-  --color-punch-red-300: #f07581;
-  --color-punch-red-400: #ec4657;
-  --color-punch-red-500: #e7182d;
-  --color-punch-red-600: #b91324;
-  --color-punch-red-700: #8a0f1b;
-  --color-punch-red-800: #5c0a12;
-  --color-punch-red-900: #2e0509;
-  --color-punch-red-950: #200306;
+  --font-sans: "Comfortaa", sans-serif;
+  --font-display: "DM Serif Display", serif;
+  --font-serif: "DM Serif Text", serif;
+  --font-kings: "Kings", cursive;
+  --font-poster: "Rye", serif;
 }
 
-/* ── Bridge the suit palette into Nuxt UI's tokens ───────── */
-:root,
-:root.dark {
-  --ui-primary:          var(--color-accent);
-  --ui-bg:               var(--color-bg);
-  --ui-bg-muted:         var(--color-surface);
-  --ui-bg-elevated:      var(--color-surface);
-  --ui-bg-accented:      var(--color-card);
-  --ui-border:           var(--color-border);
-  --ui-border-muted:     var(--color-border);
-  --ui-border-accented:  var(--color-accent-deep);
-  --ui-text:             var(--color-text);
-  --ui-text-highlighted: var(--color-text);
-  --ui-text-muted:       color-mix(in oklab, var(--color-text) 65%, transparent);
-  --ui-text-dimmed:      color-mix(in oklab, var(--color-text) 45%, transparent);
+/* ── Bridge the deck into Nuxt UI's tokens ───────────────── */
+/* Nuxt UI's own colour mode is off (nuxt.config) — the palette class
+   decides light vs dark, so every token it reads is set here. */
+:root {
+  --ui-primary:          var(--color-primary);
+  --ui-bg:               var(--color-base);
+  --ui-bg-muted:         var(--color-paper);
+  --ui-bg-elevated:      var(--color-paper);
+  --ui-bg-accented:      var(--color-paper);
+  --ui-bg-inverted:      var(--color-ink);
+  --ui-border:           var(--color-ink);
+  --ui-border-muted:     var(--color-ink);
+  --ui-border-accented:  var(--color-ink);
+  --ui-border-inverted:  var(--color-paper);
+  --ui-text:             var(--color-ink);
+  --ui-text-highlighted: var(--color-ink);
+  --ui-text-toned:       var(--color-ink);
+  --ui-text-muted:       var(--color-ink);
+  --ui-text-dimmed:      var(--color-ink);
+  --ui-text-inverted:    var(--color-paper);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Clear the sticky header on #anchor jumps. Kept off <html> as scroll-padding,
-   which made focusing anything in the header scroll the page up. */
+body {
+  background: var(--color-base);
+  color: var(--color-on-base);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
 section[id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 1rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -89,6 +54,97 @@ section[id] {
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-text);
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+/* ── Layout ──────────────────────────────────────────────── */
+.wrap {
+  width: 100%;
+  max-width: 70rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* ── Colour blocks ───────────────────────────────────────── */
+/* Each section is one flat block; children read --blk-fg / --blk-drop */
+.blk {
+  background: var(--blk-bg);
+  color: var(--blk-fg);
+  border-top: 4px solid var(--color-ink);
+  padding-block: 4.5rem 5rem;
+}
+@media (min-width: 1024px) {
+  .blk { padding-block: 7.5rem; }
+}
+.blk-base    { --blk-bg: var(--color-base);    --blk-fg: var(--color-on-base); --blk-drop: var(--color-drop); }
+.blk-primary { --blk-bg: var(--color-primary); --blk-fg: var(--color-paper);   --blk-drop: var(--color-ink); }
+.blk-gold    { --blk-bg: var(--color-gold);    --blk-fg: var(--color-ink);     --blk-drop: var(--color-ink); }
+.blk-paper   { --blk-bg: var(--color-paper);   --blk-fg: var(--color-ink);     --blk-drop: var(--color-ink); }
+
+/* ── Printed objects: paper, ink outline, hard shadow ────── */
+.stock {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: 3px solid var(--color-ink);
+  box-shadow: 7px 7px 0 var(--blk-drop, var(--color-ink));
+}
+
+/* Pill buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border: 3px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-weight: 700;
+  line-height: 1.2;
+  box-shadow: 5px 5px 0 var(--blk-drop, var(--color-ink));
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--blk-drop, var(--color-ink));
+}
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 var(--blk-drop, var(--color-ink));
+}
+.btn-gold { background: var(--color-gold); }
+.btn:disabled { opacity: 0.7; cursor: progress; }
+
+/* Section headings */
+.sec-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  line-height: 1.05;
+}
+.sec-sub {
+  margin-top: 0.5rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.1875rem, 2vw, 1.5rem);
+  line-height: 1.35;
+}
+
+/* Stickers */
+.sticker {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border: 3px solid var(--color-ink);
+  border-radius: 6px;
+  background: var(--color-gold);
+  color: var(--color-ink);
+  font-family: var(--font-kings);
+  font-size: 1.75rem;
+  line-height: 1.2;
 }

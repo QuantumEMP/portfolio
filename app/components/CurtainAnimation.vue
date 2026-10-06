@@ -75,8 +75,10 @@ onBeforeUnmount(() => {
     aria-hidden="true"
   >
     <p ref="line" class="curtain-line">
-      "When you bring me out, can you introduce me as
-      <span class="font-comic font-bold">Joker</span>?"
+      <span class="curtain-bubble">
+        "When you bring me out, can you introduce me as
+        <span class="curtain-joker">Joker</span>?"
+      </span>
     </p>
 
     <svg
@@ -157,44 +159,30 @@ onBeforeUnmount(() => {
       <!--
         ═══════════════════════════════════════════════
         LIVE PANELS  (start as two flat half-rectangles)
-        Rich stage-curtain red — matches the reference
+        Tent-stripe curtain in the deck colours
         ═══════════════════════════════════════════════
       -->
 
-      <!-- Vertical fold lines via a subtle gradient for fabric depth -->
+      <!-- Flat tent stripes in the active deck's suit and paper colours -->
       <defs>
-        <linearGradient id="curtain-grad-left" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stop-color="#8b0c22" />
-          <stop offset="18%"  stop-color="#c01230" />
-          <stop offset="35%"  stop-color="#9e1028" />
-          <stop offset="52%"  stop-color="#c01230" />
-          <stop offset="68%"  stop-color="#a50e29" />
-          <stop offset="82%"  stop-color="#c01230" />
-          <stop offset="100%" stop-color="#7a0a1e" />
-        </linearGradient>
-        <linearGradient id="curtain-grad-right" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%"   stop-color="#7a0a1e" />
-          <stop offset="18%"  stop-color="#c01230" />
-          <stop offset="35%"  stop-color="#a50e29" />
-          <stop offset="52%"  stop-color="#c01230" />
-          <stop offset="68%"  stop-color="#9e1028" />
-          <stop offset="85%"  stop-color="#c01230" />
-          <stop offset="100%" stop-color="#8b0c22" />
-        </linearGradient>
+        <pattern id="curtain-stripes" width="8" height="100" patternUnits="userSpaceOnUse">
+          <rect width="4" height="100" fill="var(--color-primary)" />
+          <rect x="4" width="4" height="100" fill="var(--color-paper)" />
+        </pattern>
       </defs>
 
       <!-- Left curtain panel -->
       <path
         ref="leftPanel"
         d="M0,0 L50,0 L50,100 L0,100 Z"
-        fill="url(#curtain-grad-left)"
+        fill="url(#curtain-stripes)"
       />
 
       <!-- Right curtain panel -->
       <path
         ref="rightPanel"
         d="M50,0 L100,0 L100,100 L50,100 Z"
-        fill="url(#curtain-grad-right)"
+        fill="url(#curtain-stripes)"
       />
     </svg>
   </div>
@@ -208,16 +196,28 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.35em;
-  flex-wrap: wrap;
-  padding: 2rem;
-  text-align: center;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  color: var(--color-night-bordeaux-50);
-  text-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
   pointer-events: none;
   opacity: 0; /* faded in by the timeline */
+}
+.curtain-bubble {
+  max-width: 34rem;
+  margin: 1.5rem;
+  padding: 1.25rem 1.75rem;
+  border: 4px solid var(--color-ink);
+  border-radius: 0.75rem;
+  background: var(--color-gold);
+  color: var(--color-ink);
+  box-shadow: 8px 8px 0 var(--color-ink);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 3vw, 1.875rem);
+  line-height: 1.35;
+}
+.curtain-joker {
+  font-family: var(--font-kings);
+  font-style: normal;
+  font-size: 1.3em;
+  color: var(--color-primary);
 }
 </style>

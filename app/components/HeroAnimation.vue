@@ -1,57 +1,51 @@
 <template>
-  <section id="home" class="hero">
-    <UContainer class="hero-grid">
-      <div>
-        <p class="hero-eyebrow">Introducing</p>
+  <section id="home" class="hero blk-base">
+    <!-- The big top: scalloped tent valance and striped side curtains -->
+    <div class="hero-valance" aria-hidden="true" />
+    <div class="hero-curtain hero-curtain--left" aria-hidden="true" />
+    <div class="hero-curtain hero-curtain--right" aria-hidden="true" />
+
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="hero-intro">Ladies, gentlemen and everyone in between, introducing</p>
 
         <h1 class="hero-title">
           <span class="block">Jude</span>
           <span class="hero-line2">the
-          <span class="hero-struck">
-            Clown
-            <svg
-              class="hero-scribble"
-              viewBox="0 0 200 60"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <path
-                ref="scribble"
-                d="M4,34 C20,18 30,46 46,30 S72,16 88,34 S114,48 130,28 S158,16 172,34 S190,42 196,24
-                   M10,44 C40,24 70,48 104,26 S160,46 194,18"
-              />
-            </svg>
-            <span ref="joker" class="hero-joker">Joker</span>
-          </span></span>
+            <span class="hero-struck">
+              Clown
+              <svg
+                class="hero-scribble"
+                viewBox="0 0 200 60"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  ref="scribble"
+                  d="M4,34 C20,18 30,46 46,30 S72,16 88,34 S114,48 130,28 S158,16 172,34 S190,42 196,24
+                     M10,44 C40,24 70,48 104,26 S160,46 194,18"
+                />
+              </svg>
+              <span ref="joker" class="hero-joker">Joker</span>
+            </span></span>
         </h1>
 
         <p ref="tagline" class="hero-tagline">
-          <span class="hero-paint">
-            Life is like a deck of cards; sometimes you have to play the joker.
-          </span>
+          Life is like a deck of cards; sometimes you have to play the joker.
+          Websites, apps and games by Jude Rose and the Quantum System.
         </p>
 
         <div ref="ctas" class="hero-ctas">
-          <UButton to="/#work" label="See the work" size="lg" class="rounded-full" />
-          <UButton
-            to="/#contact"
-            label="Deal me in"
-            size="lg"
-            color="neutral"
-            variant="outline"
-            class="rounded-full"
-          />
+          <NuxtLink to="/#work" class="btn btn-gold">See the acts</NuxtLink>
+          <NuxtLink to="/#contact" class="btn">Buy a ticket</NuxtLink>
         </div>
       </div>
 
-      <img
-        class="hero-cards"
-        src="/backgrounds/Jacks.png"
-        alt=""
-        width="1378"
-        height="1192"
-      >
-    </UContainer>
+      <JokerCard class="hero-card" />
+    </div>
+
+    <!-- Points at the hand of cards fixed to the bottom of the screen -->
+    <span class="sticker hero-sticker" aria-hidden="true">pick a card!</span>
   </section>
 </template>
 
@@ -82,8 +76,8 @@ onMounted(() => {
   tl = gsap.timeline({ paused: true })
     // Let "Jude the Clown" land before correcting it
     .to(scribble.value, { drawSVG: '100%', duration: 0.7, ease: 'power1.inOut' }, 0.9)
-    .to(joker.value, { opacity: 1, scale: 1, rotate: -8, duration: 0.6, ease: 'back.out(2.5)' }, '-=0.1')
-    // Tagline is painted on, left to right
+    .to(joker.value, { opacity: 1, scale: 1, rotate: 7, duration: 0.6, ease: 'back.out(2.5)' }, '-=0.1')
+    // Tagline is revealed left to right
     .to(tagline.value, { clipPath: 'inset(0 0% 0 0)', duration: 1.4, ease: 'power2.inOut', clearProps: 'clipPath' }, '+=0.2')
     .to(ctas.value, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
 
@@ -97,42 +91,92 @@ onBeforeUnmount(() => tl?.kill())
 
 <style>
 .hero {
+  --scallop: 2.5rem;
   position: relative;
   overflow: hidden;
-  min-height: calc(100svh - var(--ui-header-height, 4rem));
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 4rem 0;
-  background:
-    radial-gradient(ellipse at 75% 40%, color-mix(in oklab, var(--color-accent) 22%, transparent), transparent 60%),
-    var(--color-bg);
+  border-top: 0;
+  padding-block: 9rem 8rem;
 }
+@media (min-width: 1024px) {
+  .hero { --scallop: 5rem; padding-block: 14rem 9rem; }
+}
+
+/* Tent valance: a striped band with alternating suit/paper scallops
+   hanging off it. Each tile is two scallops wide (--scallop each). */
+.hero-valance {
+  --band: calc(var(--scallop) * 0.55);
+  --r: calc(var(--scallop) / 2);
+  position: absolute;
+  z-index: 1;
+  inset: 0 0 auto;
+  height: calc(var(--band) + var(--r) + 3px);
+  background:
+    /* band stripes, lined up over the scallops below */
+    linear-gradient(90deg, var(--color-paper) 25%, var(--color-primary) 25% 75%, var(--color-paper) 75%)
+      0 0 / calc(var(--scallop) * 2) var(--band) repeat-x,
+    /* ink stripe dividers */
+    linear-gradient(90deg, transparent calc(var(--r) - 1.5px), var(--color-ink) 0 calc(var(--r) + 1.5px), transparent 0)
+      0 0 / var(--scallop) var(--band) repeat-x,
+    radial-gradient(circle at 50% var(--band), var(--color-primary) calc(var(--r) - 3px), var(--color-ink) 0 var(--r), transparent 0)
+      0 0 / calc(var(--scallop) * 2) 100% repeat-x,
+    radial-gradient(circle at 50% var(--band), var(--color-paper) calc(var(--r) - 3px), var(--color-ink) 0 var(--r), transparent 0)
+      var(--scallop) 0 / calc(var(--scallop) * 2) 100% repeat-x;
+}
+
+/* Side curtains in tent stripes */
+.hero-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1rem;
+  background: repeating-linear-gradient(90deg, var(--color-primary) 0 0.5rem, var(--color-paper) 0.5rem 1rem);
+}
+.hero-curtain--left  { left: 0; border-right: 3px solid var(--color-ink); }
+.hero-curtain--right { right: 0; border-left: 3px solid var(--color-ink); }
+@media (min-width: 1024px) {
+  .hero-curtain {
+    width: clamp(4rem, 9.5vw, 8.5rem);
+    background: repeating-linear-gradient(90deg, var(--color-primary) 0 2.125rem, var(--color-paper) 2.125rem 4.25rem);
+  }
+}
+
 .hero-grid {
+  position: relative;
   display: grid;
-  gap: 3rem;
+  gap: 3.5rem;
   align-items: center;
 }
 @media (min-width: 1024px) {
-  .hero-grid { grid-template-columns: 1.2fr 1fr; }
+  .hero-grid { grid-template-columns: 1.25fr 1fr; }
 }
-.hero-eyebrow {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-accent);
+
+.hero-intro {
+  max-width: 22rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.0625rem, 1.6vw, 1.375rem);
+  line-height: 1.3;
+  color: var(--color-gold);
 }
+.pal-club .hero-intro,
+.pal-diamond .hero-intro { color: var(--color-primary); }
+@media (min-width: 1024px) {
+  .hero-intro { max-width: none; }
+}
+
 .hero-title {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   font-family: var(--font-display);
-  font-size: clamp(3rem, 9vw, 6.5rem);
-  font-weight: 700;
+  font-weight: 400;
+  font-size: clamp(4.5rem, 10vw, 8.5rem);
   line-height: 1;
-  color: var(--color-text);
 }
 .hero-line2 {
   display: block;
-  margin-top: 0.4em; /* headroom for "Joker" written above "Clown" */
+  margin-top: 0.15em;
   white-space: nowrap;
 }
 .hero-struck {
@@ -142,67 +186,63 @@ onBeforeUnmount(() => tl?.kill())
 }
 .hero-scribble {
   position: absolute;
-  inset: 15% -4% 10% -4%;
+  inset: 30% -4% 18% -4%;
   width: 108%;
-  height: 75%;
+  height: 52%;
   overflow: visible;
 }
 .hero-scribble path {
   fill: none;
-  stroke: var(--color-accent);
-  stroke-width: 5;
+  stroke: var(--color-gold);
+  stroke-width: 8;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
 .hero-joker {
   position: absolute;
-  left: 50%;
-  bottom: 78%;
-  translate: -50% 0;
-  rotate: -8deg;
-  font-family: var(--font-comic);
-  font-size: 0.75em;
-  font-weight: 700;
-  color: var(--color-accent-soft);
-  text-shadow: 0 0 24px color-mix(in oklab, var(--color-accent) 60%, transparent);
+  left: 8%;
+  bottom: 62%;
+  rotate: 7deg;
+  font-family: var(--font-kings);
+  font-size: 0.95em;
+  line-height: 1;
+  color: var(--color-primary);
+  /* cut-out edge so the scrawl sits on top of "Jude" */
+  -webkit-text-stroke: 0.06em var(--color-base);
+  paint-order: stroke fill;
 }
+
 .hero-tagline {
-  margin-top: 2.5rem;
-  max-width: 34rem;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.125rem, 2.2vw, 1.5rem);
-  line-height: 1.6;
-  color: var(--color-text);
-}
-.hero-paint {
-  /* Brush-stroke highlight behind the text */
-  background: linear-gradient(
-    100deg,
-    transparent 0.5%,
-    color-mix(in oklab, var(--color-accent) 45%, transparent) 2%,
-    color-mix(in oklab, var(--color-accent) 30%, transparent) 97%,
-    transparent 99.5%
-  );
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding: 0.1em 0.35em;
+  margin-top: 2rem;
+  max-width: 33rem;
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.65;
 }
 .hero-ctas {
-  margin-top: 2.5rem;
+  margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 1rem;
 }
-.hero-cards {
-  width: 100%;
-  max-width: 32rem;
+
+.hero-sticker {
+  position: absolute;
+  z-index: 1;
+  right: calc(50% - 2rem);
+  bottom: 1.5rem;
+  rotate: -7deg;
+  font-size: 1.375rem;
+}
+@media (min-width: 768px) {
+  .hero-sticker { right: 28rem; bottom: 4rem; rotate: 8deg; font-size: 1.75rem; }
+}
+
+.hero-card {
   justify-self: center;
-  rotate: 6deg;
-  filter: drop-shadow(0 30px 40px rgb(0 0 0 / 0.5));
+  rotate: -7deg;
 }
 @media (max-width: 1023px) {
-  .hero-cards { max-width: 20rem; }
+  .hero-card { width: min(13rem, 60vw); justify-self: end; margin-right: 1rem; }
 }
 </style>
