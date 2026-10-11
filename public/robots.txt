@@ -1,2 +1,4 @@
 User-Agent: *
 Disallow:
+
+Sitemap: https://jok3r.win/sitemap.xml
