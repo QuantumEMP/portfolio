@@ -12,6 +12,14 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Joker: websites, apps and games by Jude Rose and the Quantum System. Introduce a little anarchy.' },
       ],
+      // Google tag (gtag.js). It lives here rather than in a page's <script> block,
+      // which Vue compiles as component code and never sends to the browser.
+      script: [
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-FDVFQ38M70', async: true },
+        {
+          innerHTML: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-FDVFQ38M70');",
+        },
+      ],
     },
   },
 
