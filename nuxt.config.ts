@@ -12,6 +12,14 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'Joker: websites, apps and games by Jude Rose and the Quantum System. Introduce a little anarchy.' },
       ],
+      // Google shows the favicon beside the site name in search results; it wants a
+      // square icon at a multiple of 48px, so the PNGs are cut from favicon.ico's 256px frame
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico', sizes: '16x16 32x32 48x48 64x64 256x256' },
+        { rel: 'icon', type: 'image/png', href: '/favicon-48.png', sizes: '48x48' },
+        { rel: 'icon', type: 'image/png', href: '/favicon-192.png', sizes: '192x192' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', sizes: '180x180' },
+      ],
       // Google tag (gtag.js). It lives here rather than in a page's <script> block,
       // which Vue compiles as component code and never sends to the browser.
       script: [
