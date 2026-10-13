@@ -15,18 +15,28 @@
 import { contact } from '~/data/contact'
 
 const siteUrl = 'https://jok3r.win/'
-const title = 'Joker — Jude Rose'
-const description = 'Joker: websites, apps and games by Jude Rose and the Quantum System. Introduce a little anarchy.'
+// Lead with the name and what Jude does: that's what people search for
+const title = 'Jude Rose: Web & App Developer in Cape Town | Joker'
+const description = 'Jude Rose (Joker) builds websites, mobile apps and games from Cape Town. See the projects and skills, then book a consultation.'
+const image = `${siteUrl}og-image.png`
 
 useSeoMeta({
+  title,
+  description,
   ogType: 'website',
   ogSiteName: 'Joker',
+  ogLocale: 'en_ZA',
   ogTitle: title,
   ogDescription: description,
   ogUrl: siteUrl,
-  twitterCard: 'summary',
+  ogImage: image,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  ogImageAlt: 'Joker: Jude the Clown, introduced under the big top',
+  twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: description,
+  twitterImage: image,
 })
 
 useHead({
@@ -36,13 +46,29 @@ useHead({
     type: 'application/ld+json',
     innerHTML: JSON.stringify({
       '@context': 'https://schema.org',
-      '@type': 'Person',
-      'name': 'Jude Rose',
-      'alternateName': 'Joker',
-      'url': siteUrl,
-      'jobTitle': 'Software Developer',
-      'address': { '@type': 'PostalAddress', 'addressLocality': 'Cape Town', 'addressCountry': 'ZA' },
-      'sameAs': contact.socials.map(s => s.to),
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}#website`,
+          'url': siteUrl,
+          'name': 'Joker',
+          'alternateName': 'Jude Rose',
+          'inLanguage': 'en',
+          'publisher': { '@id': `${siteUrl}#jude` },
+        },
+        {
+          '@type': 'Person',
+          '@id': `${siteUrl}#jude`,
+          'name': 'Jude Rose',
+          'alternateName': 'Joker',
+          'url': siteUrl,
+          'jobTitle': 'Software Developer',
+          'description': description,
+          'email': `mailto:${contact.email}`,
+          'address': { '@type': 'PostalAddress', 'addressLocality': 'Cape Town', 'addressCountry': 'ZA' },
+          'sameAs': contact.socials.map(s => s.to),
+        },
+      ],
     }),
   }],
 })
