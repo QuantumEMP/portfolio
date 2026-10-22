@@ -5,5 +5,6 @@
       <NuxtPage />
     </NuxtLayout>
     <SiteToast />
+    <ConsentBanner />
   </div>
 </template>

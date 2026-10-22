@@ -27,11 +27,16 @@ export default defineNuxtConfig({
       ],
       // Google tag (gtag.js). It lives here rather than in a page's <script> block,
       // which Vue compiles as component code and never sends to the browser.
+      // Consent Mode: analytics storage stays denied (cookieless pings only) until
+      // the visitor accepts in <ConsentBanner>, which saves the choice under joker-consent
       script: [
-        { src: 'https://www.googletagmanager.com/gtag/js?id=G-FDVFQ38M70', async: true },
         {
-          innerHTML: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-FDVFQ38M70');",
+          innerHTML: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}"
+            + "var c;try{c=localStorage.getItem('joker-consent')}catch(e){}"
+            + "gtag('consent','default',{analytics_storage:c==='granted'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});"
+            + "gtag('js', new Date());gtag('config', 'G-FDVFQ38M70');",
         },
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-FDVFQ38M70', async: true },
       ],
     },
   },

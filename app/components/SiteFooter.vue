@@ -2,6 +2,7 @@
 import { contact } from '~/data/contact'
 
 const year = new Date().getFullYear()
+const { open: cookieChoiceOpen } = useConsent()
 </script>
 
 <template>
@@ -22,7 +23,10 @@ const year = new Date().getFullYear()
           <Icon :name="social.icon" class="size-5" />
         </a>
       </div>
-      <p class="ft-copy">© {{ year }} Jude Rose</p>
+      <p class="ft-copy">
+        © {{ year }} Jude Rose
+        <button type="button" class="ft-cookies" @click="cookieChoiceOpen = true">Cookie settings</button>
+      </p>
     </div>
   </footer>
 </template>
@@ -74,4 +78,10 @@ const year = new Date().getFullYear()
   color: var(--color-ink);
 }
 .ft-copy { font-size: 0.875rem; }
+.ft-cookies {
+  margin-left: 1rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
 </style>
