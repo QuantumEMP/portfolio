@@ -49,7 +49,7 @@ export interface IProjectGroup {
 }
 
 export interface ICaseStudySection {
-    heading : string,
+    heading? : string,
     paragraphs? : string[],
     points? : string[],
 }

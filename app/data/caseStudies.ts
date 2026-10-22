@@ -16,25 +16,11 @@ export const caseStudies: ICaseStudy[] = [
     updated: '2026-10-22',
     sections: [
       {
-        heading: 'The brief',
+        heading: 'Fieldnote, a dashboard to end all dashboards.',
         paragraphs: [
-          'Fieldnote is an example project: the kind of internal task tool teams live in all day and quietly put up with. The before state is deliberately familiar, with ALL-CAPS labels, stray punctuation shouting for attention and a different background on every menu item.',
-          'The goal was to make it calm and readable without losing anything people rely on.',
-        ],
-      },
-      {
-        heading: 'What changed',
-        points: [
-          'One calm label per item instead of ALL-CAPS and "TASKS!!".',
-          'A single active-state colour, the palette accent, replaces inconsistent per-item backgrounds.',
-          'Real product branding anchors the navigation instead of a bare list.',
-          'The redesign holds up across all four suit palettes, from dark Spade to light Diamond.',
-        ],
-      },
-      {
-        heading: 'How to read it',
-        paragraphs: [
-          'Each part of the case study has a before-and-after slider. Drag it to compare, then switch suits to see the redesign hold up in every palette.',
+          'Ever wondered why your dashboard doesn\'t have that "wow factor" you\'ve been looking for? Well, I know the answer to that :)',
+          'This example focuses on what visual changes you can bring into your dashboard to improve the user experience. Whether that is externally to users or internally with your team, we know how to better your look and feel.',
+          'Even if you can\'t put your finger on what\'s missing, we know what you mean and are happy to help',
         ],
       },
     ],
@@ -51,18 +37,10 @@ export const caseStudies: ICaseStudy[] = [
     updated: '2026-10-22',
     sections: [
       {
-        heading: 'The brief',
         paragraphs: [
-          'Kiln & Ash is an example studio running weekend wheel-throwing workshops, capped at six seats and taught by professional potters. The page has one job: get a visitor from curious to booked.',
-        ],
-      },
-      {
-        heading: 'What\'s on the page',
-        points: [
-          'A headline that sells the feeling ("Learn to throw clay in one unhurried weekend.") before the logistics.',
-          'One primary action, Reserve a wheel, in both the header and the hero, with a quieter link to the month\'s sessions.',
-          'An earthy palette of clay, ash and cream with a serif headline, so the page feels handmade rather than templated.',
-          'A simple wheel illustration instead of a heavy stock photo.',
+          'When looking for new bookings to your project, the place you drop your users is the first impression that they have. This look is even more important than your service itself!',
+          'Kiln and Ash is a pottery studio that focuses heavily on booking from online sources and for that reason, their landing page needed to give that same free feeling that their service provides.',
+          'From colour schemes to animations, we mould every site to your requirements.',
         ],
       },
     ],
@@ -79,15 +57,10 @@ export const caseStudies: ICaseStudy[] = [
     updated: '2026-10-22',
     sections: [
       {
-        heading: 'Why it exists',
         paragraphs: [
-          'South African Sign Language became the country\'s 12th official language, yet most hearing South Africans can\'t sign a word of it. This translator is a small bridge across that gap: type English, see it in SASL.',
-        ],
-      },
-      {
-        heading: 'How it works',
-        paragraphs: [
-          'Type a sentence in English and the translator shows it in SASL. The Learn more guide is recommended before you start, since SASL has its own grammar rather than following English word for word.',
+          'South African Sign Language is set to become the 12th official language of South Africa and yet -- deaf people still don\'t have adequite accessiblity out in the world.',
+          'This translator is the beginning of a brighter future for our deaf communities in our country. Starting as a simple translator to interest others in learning the language, the ambitious plan is a "universal translator" for deaf people to see signs when others speak',
+          'From translation to video compilation, databases and data engineering is our speciality.',
         ],
       },
     ],
