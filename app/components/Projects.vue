@@ -29,6 +29,7 @@ const prettyUrl = (url: string) => url.replace(/^https?:\/\//, '')
               <h4 class="ss-name">{{ project.name }}</h4>
               <p v-if="project.description" class="ss-desc">{{ project.description }}</p>
               <p class="ss-links">
+                <NuxtLink v-if="project.caseStudy" :to="`/work/${project.caseStudy}`">Read the case study</NuxtLink>
                 <a v-if="project.url" :href="project.url" target="_blank" rel="noopener">{{ prettyUrl(project.url) }}</a>
                 <a v-if="project.repo" :href="project.repo" target="_blank" rel="noopener">See the source</a>
               </p>

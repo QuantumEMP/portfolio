@@ -41,11 +41,26 @@ export default defineNuxtConfig({
     },
   },
 
-  // Baseline security headers on every response. No CSP yet: the Google tag
-  // and Nuxt's inline payload scripts need one tuned before it can be enforced
+  // Baseline security headers on every response. The CSP is report-only for now:
+  // violations show in the browser console and reach /api/csp-report (server logs).
+  // Once the logs stay quiet, rename the header to Content-Security-Policy to enforce it
   routeRules: {
     '/**': {
       headers: {
+        'Content-Security-Policy-Report-Only': [
+          'default-src \'self\'',
+          // inline: the Google tag snippet, the curtain check and Nuxt's import map
+          'script-src \'self\' \'unsafe-inline\' https://www.googletagmanager.com',
+          'style-src \'self\' \'unsafe-inline\'',
+          'img-src \'self\' data: https://*.google-analytics.com https://*.googletagmanager.com',
+          'font-src \'self\' data:',
+          'connect-src \'self\' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com',
+          'object-src \'none\'',
+          'base-uri \'self\'',
+          'form-action \'self\'',
+          'frame-ancestors \'self\'',
+          'report-uri /api/csp-report',
+        ].join('; '),
         'X-Content-Type-Options': 'nosniff',
         'X-Frame-Options': 'SAMEORIGIN',
         'Referrer-Policy': 'strict-origin-when-cross-origin',

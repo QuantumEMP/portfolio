@@ -26,7 +26,7 @@ const { toasts, remove } = useToast()
   position: fixed;
   z-index: 10000;
   right: 1rem;
-  bottom: 1rem;
+  top: 1rem;
   display: grid;
   gap: 0.75rem;
   width: min(24rem, calc(100vw - 2rem));
