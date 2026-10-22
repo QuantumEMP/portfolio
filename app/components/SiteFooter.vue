@@ -19,7 +19,7 @@ const year = new Date().getFullYear()
           :aria-label="social.label"
           class="ft-social"
         >
-          <UIcon :name="social.icon" class="size-5" />
+          <Icon :name="social.icon" class="size-5" />
         </a>
       </div>
       <p class="ft-copy">© {{ year }} Jude Rose</p>

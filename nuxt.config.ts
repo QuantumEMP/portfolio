@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/fonts'],
   css: ['~/assets/css/main.css'],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   app: {
     head: {
@@ -50,11 +55,6 @@ export default defineNuxtConfig({
     contactTo: 'jude1rose@outlook.com',
     // jok3r.win must be a verified domain in Resend for this sender to deliver
     contactFrom: 'Joker <software@jok3r.win>',
-  },
-
-  // Light/dark comes from the suit palette class on <html>, not Nuxt UI's colour mode
-  ui: {
-    colorMode: false,
   },
 
   // Ship these with the app so SSR can render them (the scanner misses icons passed via props/data)
