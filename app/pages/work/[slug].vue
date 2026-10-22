@@ -83,8 +83,8 @@ useHead({
 
       <img :src="study.image" :alt="study.imageAlt" class="cs-shot stock" width="960" height="540">
 
-      <section v-for="section in study.sections" :key="section.heading" class="cs-section">
-        <h2 class="cs-heading">{{ section.heading }}</h2>
+      <section v-for="(section, s) in study.sections" :key="s" class="cs-section">
+        <h2 v-if="section.heading" class="cs-heading">{{ section.heading }}</h2>
         <p v-for="(paragraph, i) in section.paragraphs" :key="i">{{ paragraph }}</p>
         <ul v-if="section.points" class="cs-points">
           <li v-for="point in section.points" :key="point">{{ point }}</li>
