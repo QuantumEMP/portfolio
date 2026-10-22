@@ -35,6 +35,8 @@ export interface IProject {
     url? : string,
     repo? : string,
     image? : string,
+    /** 'contain' for small or odd-shaped shots that shouldn't be cropped to 16:10 */
+    imageFit? : 'cover' | 'contain',
     description? : string,
 }
 

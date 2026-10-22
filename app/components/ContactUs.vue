@@ -89,7 +89,7 @@ const onSubmit = async () => {
           >
           <label class="tk-field">
             <span>Name</span>
-            <input v-model="form.name" name="name" placeholder="Jude Rose" maxlength="100" autocomplete="name" required>
+            <input v-model="form.name" name="name" placeholder="Your name" maxlength="100" autocomplete="name" required>
           </label>
           <label class="tk-field">
             <span>Email</span>

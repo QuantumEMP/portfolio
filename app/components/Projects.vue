@@ -23,6 +23,7 @@ const prettyUrl = (url: string) => url.replace(/^https?:\/\//, '')
                 :src="project.image"
                 :alt="`Screenshot of ${project.name}`"
                 class="ss-photo"
+                :class="{ 'ss-photo--contain': project.imageFit === 'contain' }"
                 loading="lazy"
               >
               <h4 class="ss-name">{{ project.name }}</h4>
@@ -103,6 +104,11 @@ const prettyUrl = (url: string) => url.replace(/^https?:\/\//, '')
   margin-bottom: 0.4rem;
   border: 3px solid var(--color-ink);
   background: var(--color-paper);
+}
+.ss-photo--contain {
+  object-fit: contain;
+  /* the terminal's own black, so the letterbox reads as part of the shot */
+  background: #0c0c0c;
 }
 .ss-name {
   font-weight: 700;

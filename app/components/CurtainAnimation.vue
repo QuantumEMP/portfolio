@@ -6,6 +6,7 @@ const visible = ref(true)
 
 const bubble = ref<HTMLParagraphElement | null>(null)
 const halves = ref<HTMLDivElement[]>([])
+const edges = ref<HTMLSpanElement[]>([])
 
 let tl: gsap.core.Timeline | undefined
 
@@ -61,15 +62,20 @@ onMounted(() => {
   window.addEventListener('wheel', skip, { passive: true })
   window.addEventListener('touchmove', skip, { passive: true })
 
-  // Gather into the hero's own side curtains, so the hand-off is seamless
+  // Gather into the hero's own side curtains, so the hand-off is seamless.
+  // Scaling (not resizing) the halves bunches the pleats without moving
+  // layout, which kept the page's layout-shift score high
   const gathered = document.querySelector<HTMLElement>('.hero-curtain')?.offsetWidth ?? 0
+  const half = halves.value[0]?.offsetWidth ?? 1
 
   tl = gsap.timeline({ delay: 0.2, onComplete: finish })
     // The request, from behind the curtain
     .from(bubble.value, { scale: 0.85, opacity: 0, duration: 0.45, ease: 'back.out(2)' })
     .to(bubble.value, { y: -24, opacity: 0, duration: 0.3, ease: 'power2.in' }, '+=1')
     // Both halves gather to the sides; the pleats bunch as they go
-    .to(halves.value, { width: gathered, duration: 1.3, ease: 'power3.inOut' }, '-=0.05')
+    .to(halves.value, { scaleX: gathered / half, duration: 1.3, ease: 'power3.inOut' }, '-=0.05')
+    // The ink edges ride along, unscaled, so they stay 3px wide
+    .to(edges.value, { x: i => (i ? 1 : -1) * (half - gathered), duration: 1.3, ease: 'power3.inOut' }, '<')
     // Start the hero's act while the fabric settles
     .call(() => { curtainDone.value = true }, [], '-=0.45')
 })
@@ -86,6 +92,7 @@ onBeforeUnmount(() => {
     <div v-for="side in ['left', 'right']" :key="side" ref="halves" class="ct-half" :class="`ct-half--${side}`">
       <span v-for="n in 4" :key="n" class="ct-pleat" />
     </div>
+    <span v-for="side in ['left', 'right']" :key="side" ref="edges" class="ct-edge" :class="`ct-edge--${side}`" />
 
     <!-- Same valance as the hero, so it never moves -->
     <div class="hero-valance" />
@@ -123,8 +130,17 @@ onBeforeUnmount(() => {
   width: 50%;
   display: flex;
 }
-.ct-half--left  { left: 0;  border-right: 3px solid var(--color-ink); }
-.ct-half--right { right: 0; border-left: 3px solid var(--color-ink); }
+.ct-half--left  { left: 0;  transform-origin: left; }
+.ct-half--right { right: 0; transform-origin: right; }
+.ct-edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--color-ink);
+}
+.ct-edge--left  { left: calc(50% - 3px); }
+.ct-edge--right { right: calc(50% - 3px); }
 .ct-pleat {
   flex: 1;
   background: var(--color-primary);

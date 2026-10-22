@@ -18,7 +18,7 @@ export const skillSuits: ISkillSuit[] = [
           { name: 'WooStack', example: 'https://gurliepurlie.shop' },
         ],
       },
-      { name: 'TailwindCSS', example: '/' },
+      { name: 'TailwindCSS' },
       { name: 'Storybook' },
       { name: 'Vite' },
       { name: 'HTML' },
@@ -59,7 +59,7 @@ export const skillSuits: ISkillSuit[] = [
     suit: '♣',
     skills: [
       { name: 'Lottie' },
-      { name: 'GSAP', example: '/' },
+      { name: 'GSAP' },
     ],
   },
   {

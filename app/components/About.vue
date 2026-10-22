@@ -19,7 +19,7 @@
         <p class="ab-note-lead">Upset the established order. Overflow the mould. Make something new.</p>
         <p>
           Want to make something different? We've got you covered. From websites to apps to games, we do it all.
-          So, want to join the arlechinos and take over the internet?
+          So, want to join the harlequins and take over the internet?
         </p>
         <NuxtLink to="/#contact" class="ab-link">Book a consultation</NuxtLink>
       </aside>

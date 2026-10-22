@@ -31,6 +31,19 @@ export default defineNuxtConfig({
     },
   },
 
+  // Baseline security headers on every response. No CSP yet: the Google tag
+  // and Nuxt's inline payload scripts need one tuned before it can be enforced
+  routeRules: {
+    '/**': {
+      headers: {
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+      },
+    },
+  },
+
   // Server-only; override with NUXT_RESEND_API_KEY, NUXT_CONTACT_TO, NUXT_CONTACT_FROM
   runtimeConfig: {
     resendApiKey: '',
