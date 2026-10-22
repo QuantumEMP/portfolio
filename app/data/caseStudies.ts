@@ -1,7 +1,8 @@
 import type { ICaseStudy } from '~~/types/alters'
 
-// Each one gets a page at /work/<slug>; link it from data/projects.ts with caseStudy
-// and add its URL to public/sitemap.xml
+// Each one gets a page at /work/<slug> and a sitemap entry (server/routes/sitemap.xml.ts).
+// Link it from data/projects.ts with caseStudy, add a 1200×630 link preview at
+// public/og/<slug>.jpg, and bump updated whenever the copy changes
 export const caseStudies: ICaseStudy[] = [
   {
     slug: 'fieldnote',
@@ -12,6 +13,7 @@ export const caseStudies: ICaseStudy[] = [
     image: '/projects/fieldnote.webp',
     imageAlt: 'The Fieldnote case study, with a before-and-after slider over the sidebar navigation',
     url: 'https://case.dash.jok3r.win',
+    updated: '2026-10-22',
     sections: [
       {
         heading: 'The brief',
@@ -46,6 +48,7 @@ export const caseStudies: ICaseStudy[] = [
     image: '/projects/kiln-and-ash.webp',
     imageAlt: 'The Kiln & Ash landing page: "Learn to throw clay in one unhurried weekend."',
     url: 'https://pottery.landing.jok3r.win',
+    updated: '2026-10-22',
     sections: [
       {
         heading: 'The brief',
@@ -73,6 +76,7 @@ export const caseStudies: ICaseStudy[] = [
     image: '/projects/sign-language.webp',
     imageAlt: 'The Sign Language Translator home page, with Get started and Learn more buttons',
     repo: 'https://github.com/QuantumEMP/sign-language-web',
+    updated: '2026-10-22',
     sections: [
       {
         heading: 'Why it exists',
