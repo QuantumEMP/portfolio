@@ -66,5 +66,7 @@ export interface ICaseStudy {
     imageAlt : string,
     url? : string,
     repo? : string,
+    /** YYYY-MM-DD the copy last changed; the sitemap's lastmod */
+    updated : string,
     sections : ICaseStudySection[],
 }

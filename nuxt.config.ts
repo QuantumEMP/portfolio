@@ -69,6 +69,11 @@ export default defineNuxtConfig({
     },
   },
 
+  // The sitemap is a server route (server/routes/sitemap.xml.ts); write it out as a static file
+  nitro: {
+    prerender: { routes: ['/sitemap.xml'] },
+  },
+
   // Server-only; override with NUXT_RESEND_API_KEY, NUXT_CONTACT_TO, NUXT_CONTACT_FROM
   runtimeConfig: {
     resendApiKey: '',

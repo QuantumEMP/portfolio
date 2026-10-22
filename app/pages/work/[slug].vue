@@ -14,6 +14,9 @@ const siteUrl = 'https://jok3r.win/'
 const pageUrl = `${siteUrl}work/${study.slug}`
 const title = `${study.name}: case study by Jude Rose | Joker`
 const image = `${siteUrl}${study.image.replace(/^\//, '')}`
+// Link previews get a 1200×630 JPEG (public/og/<slug>.jpg): some apps skip WebP previews
+const ogImage = `${siteUrl}og/${study.slug}.jpg`
+const otherStudies = caseStudies.filter(s => s.slug !== study.slug)
 const prettyUrl = (url: string) => url.replace(/^https?:\/\//, '')
 
 useSeoMeta({
@@ -25,12 +28,15 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: study.summary,
   ogUrl: pageUrl,
-  ogImage: image,
+  ogImage,
+  ogImageType: 'image/jpeg',
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
   ogImageAlt: study.imageAlt,
   twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: study.summary,
-  twitterImage: image,
+  twitterImage: ogImage,
 })
 
 useHead({
@@ -94,6 +100,19 @@ useHead({
         </a>
         <NuxtLink to="/#contact" class="btn">Book a consultation</NuxtLink>
       </div>
+
+      <nav v-if="otherStudies.length" class="cs-more" aria-labelledby="cs-more-title">
+        <h2 id="cs-more-title" class="cs-heading">More from the sideshow</h2>
+        <ul class="cs-more-list">
+          <li v-for="other in otherStudies" :key="other.slug">
+            <NuxtLink :to="`/work/${other.slug}`" class="cs-more-card stock">
+              <img :src="other.image" alt="" class="cs-more-shot" width="960" height="540" loading="lazy">
+              <span class="cs-more-name">{{ other.name }}</span>
+              <span class="cs-more-kicker">{{ other.kicker }}</span>
+            </NuxtLink>
+          </li>
+        </ul>
+      </nav>
     </div>
   </article>
 </template>
@@ -155,4 +174,38 @@ useHead({
   flex-wrap: wrap;
   gap: 1rem;
 }
+.cs-more {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+.cs-more-list {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 640px) {
+  .cs-more-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.cs-more-card {
+  display: grid;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 0.75rem 0.75rem 1rem;
+  border-radius: 6px;
+}
+.cs-more-shot {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: top;
+  margin-bottom: 0.4rem;
+  border-radius: 3px;
+}
+.cs-more-name {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.cs-more-kicker { font-size: 0.875rem; }
 </style>
