@@ -2,6 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://jok3r.win/</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://jok3r.win/work/fieldnote</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://jok3r.win/work/kiln-and-ash</loc>
+    <lastmod>2026-10-22</lastmod>
+  </url>
+  <url>
+    <loc>https://jok3r.win/work/sign-language-translator</loc>
+    <lastmod>2026-10-22</lastmod>
   </url>
 </urlset>

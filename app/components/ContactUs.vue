@@ -21,7 +21,7 @@ const onSubmit = async () => {
     toast.add({
       title: 'Message sent',
       description: 'Thanks for reaching out — we\'ll get back to you soon.',
-      icon: 'i-lucide-circle-check',
+      icon: 'lucide:circle-check',
       color: 'success',
     })
   }
@@ -31,7 +31,7 @@ const onSubmit = async () => {
     toast.add({
       title: 'Message not sent',
       description: `${reason ?? 'Something went wrong.'} You can email us directly at ${contact.email}.`,
-      icon: 'i-lucide-circle-x',
+      icon: 'lucide:circle-x',
       color: 'error',
       duration: 10000,
     })
@@ -62,7 +62,7 @@ const onSubmit = async () => {
             rel="noopener"
             class="btn"
           >
-            <UIcon :name="social.icon" class="size-4" />
+            <Icon :name="social.icon" class="size-4" />
             {{ social.label }}
           </a>
         </div>
@@ -89,7 +89,7 @@ const onSubmit = async () => {
           >
           <label class="tk-field">
             <span>Name</span>
-            <input v-model="form.name" name="name" placeholder="Jude Rose" maxlength="100" autocomplete="name" required>
+            <input v-model="form.name" name="name" placeholder="Your name" maxlength="100" autocomplete="name" required>
           </label>
           <label class="tk-field">
             <span>Email</span>

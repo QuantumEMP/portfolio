@@ -14,11 +14,11 @@ export const skillSuits: ISkillSuit[] = [
         name: 'WordPress',
         example: 'https://jude-rose.com/blogs',
         children: [
-          { name: 'Elementor', example: 'https://gurliepurlie.shop' },
-          { name: 'WooStack', example: 'https://gurliepurlie.shop' },
+          { name: 'Elementor' },
+          { name: 'WooStack' },
         ],
       },
-      { name: 'TailwindCSS', example: '/' },
+      { name: 'TailwindCSS' },
       { name: 'Storybook' },
       { name: 'Vite' },
       { name: 'HTML' },
@@ -35,7 +35,7 @@ export const skillSuits: ISkillSuit[] = [
       { name: 'Python', example: 'https://github.com/QuantumEMP/UNO' },
       { name: 'FastAPI' },
       { name: 'SpringBoot' },
-      { name: 'PHP', example: 'https://gurliepurlie.shop' },
+      { name: 'PHP' },
       { name: 'Firebase' },
       { name: 'ExpressJS' },
     ],
@@ -59,7 +59,7 @@ export const skillSuits: ISkillSuit[] = [
     suit: '♣',
     skills: [
       { name: 'Lottie' },
-      { name: 'GSAP', example: '/' },
+      { name: 'GSAP' },
     ],
   },
   {

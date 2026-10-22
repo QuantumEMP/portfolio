@@ -8,7 +8,8 @@ export const projectGroups: IProjectGroup[] = [
     projects: [
       { name: 'Friendship Census', url: 'https://friendship-census.jude-rose.com' },
       { name: 'Blog', url: 'https://jude-rose.com/blogs' },
-      { name: 'Gurlie Purlie', url: 'https://gurliepurlie.shop' },
+      // gurliepurlie.shop is still in development: link it again once it launches
+      { name: 'Gurlie Purlie', description: 'An online shop, opening soon.' },
     ],
   },
   {
@@ -17,7 +18,7 @@ export const projectGroups: IProjectGroup[] = [
     projects: [
       { name: 'Sudoku Solver', repo: 'https://github.com/QuantumEMP/sudoku', description: 'Written in Java.' },
       { name: 'UNO', repo: 'https://github.com/QuantumEMP/UNO', description: 'Written in Python.' },
-      { name: 'Hangman... OF PAIN', repo: 'https://github.com/QuantumEMP/Hangman', image: '/projects/hangman.png' },
+      { name: 'Hangman... OF PAIN', repo: 'https://github.com/QuantumEMP/Hangman', image: '/projects/hangman.png', imageFit: 'contain' },
     ],
   },
   {
@@ -27,7 +28,8 @@ export const projectGroups: IProjectGroup[] = [
       {
         name: 'English to South African Sign Language Translator',
         repo: 'https://github.com/QuantumEMP/sign-language-web',
-        image: '/projects/sign-language.png',
+        image: '/projects/sign-language.webp',
+        caseStudy: 'sign-language-translator',
       },
     ],
   },
@@ -38,13 +40,15 @@ export const projectGroups: IProjectGroup[] = [
       {
         name: 'Fieldnote dashboard redesign',
         url: 'https://case.dash.jok3r.win',
-        image: '/projects/fieldnote.png',
+        image: '/projects/fieldnote.webp',
+        caseStudy: 'fieldnote',
         description: 'A before-and-after case study: a cluttered task dashboard made calm and readable.',
       },
       {
         name: 'Kiln & Ash',
         url: 'https://pottery.landing.jok3r.win',
-        image: '/projects/kiln-and-ash.png',
+        image: '/projects/kiln-and-ash.webp',
+        caseStudy: 'kiln-and-ash',
         description: 'A landing page for weekend pottery workshops.',
       },
     ],

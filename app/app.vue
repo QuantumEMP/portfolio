@@ -1,10 +1,10 @@
 <template>
   <div>
     <NuxtRouteAnnouncer />
-    <UApp>
-      <NuxtLayout name="main">
-        <NuxtPage />
-      </NuxtLayout>
-    </UApp>
+    <NuxtLayout name="main">
+      <NuxtPage />
+    </NuxtLayout>
+    <SiteToast />
+    <ConsentBanner />
   </div>
 </template>

@@ -35,11 +35,36 @@ export interface IProject {
     url? : string,
     repo? : string,
     image? : string,
+    /** 'contain' for small or odd-shaped shots that shouldn't be cropped to 16:10 */
+    imageFit? : 'cover' | 'contain',
     description? : string,
+    /** Slug of its page under /work (data/caseStudies.ts) */
+    caseStudy? : string,
 }
 
 export interface IProjectGroup {
     title : string,
     suit : Suit,
     projects : IProject[],
+}
+
+export interface ICaseStudySection {
+    heading : string,
+    paragraphs? : string[],
+    points? : string[],
+}
+
+export interface ICaseStudy {
+    slug : string,
+    name : string,
+    suit : Suit,
+    /** Small line above the title */
+    kicker : string,
+    /** One or two sentences; also the page's search description */
+    summary : string,
+    image : string,
+    imageAlt : string,
+    url? : string,
+    repo? : string,
+    sections : ICaseStudySection[],
 }

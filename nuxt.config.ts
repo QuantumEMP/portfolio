@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from '@tailwindcss/vite'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/fonts'],
   css: ['~/assets/css/main.css'],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   app: {
     head: {
@@ -22,12 +27,45 @@ export default defineNuxtConfig({
       ],
       // Google tag (gtag.js). It lives here rather than in a page's <script> block,
       // which Vue compiles as component code and never sends to the browser.
+      // Consent Mode: analytics storage stays denied (cookieless pings only) until
+      // the visitor accepts in <ConsentBanner>, which saves the choice under joker-consent
       script: [
-        { src: 'https://www.googletagmanager.com/gtag/js?id=G-FDVFQ38M70', async: true },
         {
-          innerHTML: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-FDVFQ38M70');",
+          innerHTML: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}"
+            + "var c;try{c=localStorage.getItem('joker-consent')}catch(e){}"
+            + "gtag('consent','default',{analytics_storage:c==='granted'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});"
+            + "gtag('js', new Date());gtag('config', 'G-FDVFQ38M70');",
         },
+        { src: 'https://www.googletagmanager.com/gtag/js?id=G-FDVFQ38M70', async: true },
       ],
+    },
+  },
+
+  // Baseline security headers on every response. The CSP is report-only for now:
+  // violations show in the browser console and reach /api/csp-report (server logs).
+  // Once the logs stay quiet, rename the header to Content-Security-Policy to enforce it
+  routeRules: {
+    '/**': {
+      headers: {
+        'Content-Security-Policy-Report-Only': [
+          'default-src \'self\'',
+          // inline: the Google tag snippet, the curtain check and Nuxt's import map
+          'script-src \'self\' \'unsafe-inline\' https://www.googletagmanager.com',
+          'style-src \'self\' \'unsafe-inline\'',
+          'img-src \'self\' data: https://*.google-analytics.com https://*.googletagmanager.com',
+          'font-src \'self\' data:',
+          'connect-src \'self\' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com',
+          'object-src \'none\'',
+          'base-uri \'self\'',
+          'form-action \'self\'',
+          'frame-ancestors \'self\'',
+          'report-uri /api/csp-report',
+        ].join('; '),
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+      },
     },
   },
 
@@ -35,14 +73,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     resendApiKey: '',
     contactTo: 'jude1rose@outlook.com',
-    // Resend's shared sender only delivers to the Resend account owner's address —
-    // switch to an address on a verified domain (e.g. hello@jude-rose.com) for production
-    contactFrom: 'Joker Portfolio <onboarding@resend.dev>',
-  },
-
-  // Light/dark comes from the suit palette class on <html>, not Nuxt UI's colour mode
-  ui: {
-    colorMode: false,
+    // jok3r.win must be a verified domain in Resend for this sender to deliver
+    contactFrom: 'Joker <software@jok3r.win>',
   },
 
   // Ship these with the app so SSR can render them (the scanner misses icons passed via props/data)

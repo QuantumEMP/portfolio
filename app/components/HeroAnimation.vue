@@ -11,8 +11,10 @@
         <p class="hero-intro">Ladies, gentlemen and everyone in between, introducing</p>
 
         <h1 class="hero-title">
-          <span class="block">Jude</span>
-          <span class="hero-line2">the
+          <!-- Read aloud as the punchline, not "Jude the Clown Joker" -->
+          <span class="sr-only">Jude the Joker (not the Clown)</span>
+          <span class="block" aria-hidden="true">Jude</span>
+          <span class="hero-line2" aria-hidden="true">the
             <span class="hero-struck">
               Clown
               <svg
@@ -76,11 +78,12 @@ onMounted(() => {
 
   tl = gsap.timeline({ paused: true })
     // Let "Jude the Clown" land before correcting it
-    .to(scribble.value, { drawSVG: '100%', duration: 0.7, ease: 'power1.inOut' }, 0.9)
+    .to(scribble.value, { drawSVG: '100%', duration: 0.7, ease: 'power1.inOut' }, 0.6)
     .to(joker.value, { opacity: 1, scale: 1, rotate: 7, duration: 0.6, ease: 'back.out(2.5)' }, '-=0.1')
-    // Tagline is revealed left to right
-    .to(tagline.value, { clipPath: 'inset(0 0% 0 0)', duration: 1.4, ease: 'power2.inOut', clearProps: 'clipPath' }, '+=0.2')
-    .to(ctas.value, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.4')
+    // Tagline is revealed left to right while Joker is written; the buttons
+    // follow close behind, since they're what a visitor came to press
+    .to(tagline.value, { clipPath: 'inset(0 0% 0 0)', duration: 1.1, ease: 'power2.inOut', clearProps: 'clipPath' }, 1)
+    .to(ctas.value, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 1.2)
 
   watch(curtainDone, (done) => {
     if (done) tl?.play()
