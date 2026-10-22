@@ -48,9 +48,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     resendApiKey: '',
     contactTo: 'jude1rose@outlook.com',
-    // Resend's shared sender only delivers to the Resend account owner's address —
-    // switch to an address on a verified domain (e.g. hello@jude-rose.com) for production
-    contactFrom: 'Joker Portfolio <onboarding@resend.dev>',
+    // jok3r.win must be a verified domain in Resend for this sender to deliver
+    contactFrom: 'Joker <software@jok3r.win>',
   },
 
   // Light/dark comes from the suit palette class on <html>, not Nuxt UI's colour mode

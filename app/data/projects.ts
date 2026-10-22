@@ -8,7 +8,8 @@ export const projectGroups: IProjectGroup[] = [
     projects: [
       { name: 'Friendship Census', url: 'https://friendship-census.jude-rose.com' },
       { name: 'Blog', url: 'https://jude-rose.com/blogs' },
-      { name: 'Gurlie Purlie', url: 'https://gurliepurlie.shop' },
+      // gurliepurlie.shop is still in development: link it again once it launches
+      { name: 'Gurlie Purlie', description: 'An online shop, opening soon.' },
     ],
   },
   {
