@@ -9,7 +9,7 @@ export const caseStudies: ICaseStudy[] = [
     name: 'Fieldnote dashboard redesign',
     suit: '♣',
     kicker: 'Example client work · Dashboard redesign',
-    summary: 'A before-and-after case study: a cluttered internal task dashboard rebuilt around clear hierarchy, calm colour and one accent used with intent.',
+    summary: 'Fieldnote, a dashboard to end all dashboards: an example of the visual changes that give your dashboard the "wow factor" and a better user experience.',
     image: '/projects/fieldnote.webp',
     imageAlt: 'The Fieldnote case study, with a before-and-after slider over the sidebar navigation',
     url: 'https://case.dash.jok3r.win',
@@ -20,7 +20,7 @@ export const caseStudies: ICaseStudy[] = [
         paragraphs: [
           'Ever wondered why your dashboard doesn\'t have that "wow factor" you\'ve been looking for? Well, I know the answer to that :)',
           'This example focuses on what visual changes you can bring into your dashboard to improve the user experience. Whether that is externally to users or internally with your team, we know how to better your look and feel.',
-          'Even if you can\'t put your finger on what\'s missing, we know what you mean and are happy to help',
+          'Even if you can\'t put your finger on what\'s missing, we know what you mean and are happy to help.',
         ],
       },
     ],
@@ -30,7 +30,7 @@ export const caseStudies: ICaseStudy[] = [
     name: 'Kiln & Ash',
     suit: '♣',
     kicker: 'Example client work · Landing page',
-    summary: 'A landing page for weekend pottery workshops: warm, unhurried, and built to turn a curious visitor into a booked seat.',
+    summary: 'A landing page for Kiln and Ash, a pottery studio that books from online sources, built to give the same free feeling their service provides.',
     image: '/projects/kiln-and-ash.webp',
     imageAlt: 'The Kiln & Ash landing page: "Learn to throw clay in one unhurried weekend."',
     url: 'https://pottery.landing.jok3r.win',
@@ -50,7 +50,7 @@ export const caseStudies: ICaseStudy[] = [
     name: 'English to South African Sign Language Translator',
     suit: '♦',
     kicker: 'Special project · Accessibility',
-    summary: 'A web tool that translates English text into South African Sign Language (SASL), built as SASL became South Africa\'s 12th official language.',
+    summary: 'A translator for South African Sign Language, the 12th official language of South Africa, and the beginning of a "universal translator" for deaf people.',
     image: '/projects/sign-language.webp',
     imageAlt: 'The Sign Language Translator home page, with Get started and Learn more buttons',
     repo: 'https://github.com/QuantumEMP/sign-language-web',
@@ -58,8 +58,8 @@ export const caseStudies: ICaseStudy[] = [
     sections: [
       {
         paragraphs: [
-          'South African Sign Language is set to become the 12th official language of South Africa and yet -- deaf people still don\'t have adequite accessiblity out in the world.',
-          'This translator is the beginning of a brighter future for our deaf communities in our country. Starting as a simple translator to interest others in learning the language, the ambitious plan is a "universal translator" for deaf people to see signs when others speak',
+          'South African Sign Language became the 12th official language of South Africa in 2023, and yet deaf people still don\'t have adequate accessibility out in the world.',
+          'This translator is the beginning of a brighter future for our deaf communities in our country. Starting as a simple translator to interest others in learning the language, the ambitious plan is a "universal translator" for deaf people to see signs when others speak.',
           'From translation to video compilation, databases and data engineering is our speciality.',
         ],
       },
