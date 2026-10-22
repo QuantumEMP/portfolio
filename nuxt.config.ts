@@ -72,7 +72,7 @@ export default defineNuxtConfig({
   // Server-only; override with NUXT_RESEND_API_KEY, NUXT_CONTACT_TO, NUXT_CONTACT_FROM
   runtimeConfig: {
     resendApiKey: '',
-    contactTo: 'jude1rose@outlook.com',
+    contactTo: 'software@jok3r.win',
     // jok3r.win must be a verified domain in Resend for this sender to deliver
     contactFrom: 'Joker <software@jok3r.win>',
   },

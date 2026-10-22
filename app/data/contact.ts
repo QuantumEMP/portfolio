@@ -1,5 +1,5 @@
 export const contact = {
-  email: 'jude1rose@outlook.com',
+  email: 'software@jok3r.win',
   location: 'Cape Town, South Africa',
   socials: [
     { label: 'GitHub', icon: 'simple-icons:github', to: 'https://github.com/QuantumEMP' },
